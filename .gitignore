@@ -35,3 +35,11 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# Terragrunt
+.terragrunt-cache/
+
+# Ignore .env files containing sensitive environment variables
+.env
+.env.local
+.env.*.local
