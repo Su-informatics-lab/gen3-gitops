@@ -5,62 +5,62 @@ This directory contains a Terragrunt-based deployment structure for Gen3 platfor
 ## Directory Structure
 
 ```
-terragrunt/
-├── ua-vpit-rt-rds-dev/         # AWS Account folder (account-specific)
-│   ├── terragrunt.hcl          # Root configuration for this account
-│   ├── region.hcl              # AWS region configuration
-│   ├── .env.example            # Template for environment variables
-│   └── rds-dev/                # Deployment environment
-│       ├── env.hcl             # Environment variables
-│       ├── region.hcl          # Environment region settings
-│       └── terragrunt.hcl      # Environment configuration
-├── another-account/            # Another AWS Account folder
-│   ├── terragrunt.hcl          # Root configuration for that account
-│   ├── dev/                    # Development deployment
-│   ├── staging/                # Staging deployment
-│   └── prod/                   # Production deployment
+terragrunt/commons/
+├── root.hcl                    # Root configuration with common settings
+├── QUICKSTART.md               # Quick start guide
+├── README.md                   # This file
+└── environments/
+    ├── .env.example            # Template for environment variables
+    ├── example/                # Example deployment environment
+    │   ├── env.hcl             # Environment-specific variables
+    │   ├── region.hcl          # Region configuration
+    │   └── terragrunt.hcl      # Environment configuration
+    └── ardac-portal-one/       # ARDAC Portal deployment
+        ├── env.hcl             # Environment-specific variables
+        ├── region.hcl          # Region configuration
+        └── terragrunt.hcl      # Environment configuration
 ```
 
 **Key Structure Concepts:**
-- **Account Folders**: Each top-level folder represents an AWS account (e.g., `ua-vpit-rt-rds-dev`)
-- **Account Root**: Contains the root `terragrunt.hcl` with account-wide settings
-- **Deployment Folders**: Sub-folders within each account represent individual deployments/environments
-- **Environment Isolation**: Each deployment has its own state file within the account's shared S3 bucket
+- **Root Configuration**: `root.hcl` contains common settings for all deployments
+- **Environments Folder**: All deployments are organized under `environments/`
+- **Environment Isolation**: Each deployment has its own state file in a shared S3 bucket
+- **Consistent Structure**: Each environment contains `env.hcl`, `region.hcl`, and `terragrunt.hcl`
 
 ## How It Works
 
-### 1. Account-Level Configuration
+### 1. Root Configuration
 
-Each AWS account folder contains its own root `terragrunt.hcl` file with:
+The `root.hcl` file contains:
 - **Terraform Source**: Points to the gen3-terraform repository on GitHub
-- **Remote State Configuration**: Configures S3 backend with account-specific shared bucket
+- **Remote State Configuration**: Configures S3 backend with shared bucket
 - **Provider Generation**: Automatically generates AWS provider configuration
-- **Default Values**: Sets sensible defaults for all deployments in this account
+- **Default Values**: Sets sensible defaults for all deployments
 - **State Bucket**: Unique bucket name based on AWS account ID (if available) or directory hash
 
-### 2. Deployment Configuration
+### 2. Environment Configuration
 
-Each deployment directory within an account contains:
-- `env.hcl`: Deployment-specific variables (environment name, project name)
+Each environment directory under `environments/` contains:
+- `env.hcl`: Environment-specific variables (environment name, project name)
 - `region.hcl`: AWS region configuration for the deployment
-- `terragrunt.hcl`: Deployment-specific configuration that inherits from account root
+- `terragrunt.hcl`: Environment-specific configuration that inherits from root
 
 ### 3. State Management
 
-- **Account-Level Bucket**: Each AWS account gets its own S3 bucket for state storage
-- **Deployment-Level Keys**: Each deployment uses a unique key within the account's bucket
-- **Bucket Naming**: `gen3-terraform-state-<account-hash>` where hash is based on AWS_ACCOUNT_ID or directory path
-- **State File Paths**: `<deployment-name>/terraform.tfstate` (e.g., `rds-dev/terraform.tfstate`)
+- **Shared S3 Bucket**: All environments share a single S3 bucket for state storage
+- **Environment-Level Keys**: Each environment uses a unique key within the bucket
+- **Bucket Naming**: `gen3-terraform-state-<hash>` where hash is based on AWS_ACCOUNT_ID or directory path
+- **State File Paths**: `<environment-name>/terraform.tfstate` (e.g., `ardac-portal-one/terraform.tfstate`)
 
 ## Key Benefits of This Structure
 
-1. **Account Isolation**: Each AWS account has its own configuration and state storage
-2. **DRY (Don't Repeat Yourself)**: Common configuration is defined once per account
-3. **Deployment Isolation**: Each deployment has its own state file within the account
-4. **Flexible Organization**: Support for multiple AWS accounts with multiple deployments each
-5. **Consistent Naming**: Resources are named consistently across deployments
-6. **Easy Scaling**: New accounts and deployments can be added easily
-7. **Override Capability**: Deployment-specific values can override account defaults
+1. **Centralized Configuration**: Common settings defined once in `root.hcl`
+2. **DRY (Don't Repeat Yourself)**: Common configuration is defined once for all environments
+3. **Environment Isolation**: Each environment has its own state file in a shared bucket
+4. **Flexible Organization**: Easy to add new environments under `environments/`
+5. **Consistent Naming**: Resources are named consistently across environments
+6. **Easy Scaling**: New environments can be added by copying the example structure
+7. **Override Capability**: Environment-specific values can override root defaults
 
 ## Prerequisites
 
@@ -212,11 +212,11 @@ Each deployment directory within an account contains:
    # ... add other sensitive variables as needed
    ```
 
-### Deploying to an AWS Account
+### Deploying an Environment
 
-1. **Navigate to the account directory**:
+1. **Navigate to the environments directory**:
    ```bash
-   cd ua-vpit-rt-rds-dev/
+   cd terragrunt/commons/environments/
    ```
 
 2. **Set up environment variables** (copy and edit .env.example):
@@ -226,9 +226,11 @@ Each deployment directory within an account contains:
    source .env  # Linux/Mac
    ```
 
-3. **Navigate to the deployment directory**:
+3. **Navigate to your environment directory**:
    ```bash
-   cd rds-dev/
+   cd example/
+   # or
+   cd ardac-portal-one/
    ```
 
 4. **Initialize Terragrunt**:
@@ -251,27 +253,23 @@ Each deployment directory within an account contains:
    terragrunt destroy
    ```
 
-### Working with Multiple Accounts and Deployments
+### Working with Multiple Environments
 
-You can manage multiple AWS accounts and deployments:
+You can manage multiple environments:
 
 ```bash
-# Deploy to account ua-vpit-rt-rds-dev, deployment rds-dev
-cd ua-vpit-rt-rds-dev/rds-dev/
+# Deploy to example environment
+cd environments/example/
 terragrunt apply
 
-# Deploy to another account, development deployment
-cd ../another-account/dev/
-terragrunt apply
-
-# Deploy to the same account, staging deployment
-cd ../staging/
+# Deploy to ardac-portal-one environment
+cd ../ardac-portal-one/
 terragrunt apply
 ```
 
 ## Configuration Files Explained
 
-### `terragrunt.hcl` (Root)
+### `root.hcl`
 
 - **Remote State**: Configures S3 backend with environment-specific keys
 - **Provider Generation**: Creates AWS provider with default tags
@@ -302,31 +300,28 @@ These values are used for:
 
 ## Customizing for Your Environment
 
-### Adding a New AWS Account
+### Adding a New Environment
 
-1. Create a new account directory (e.g., `my-aws-account/`)
-2. Copy the `terragrunt.hcl` from an existing account folder
-3. Copy the `region.hcl` and `.env.example` files
-4. Create deployment subdirectories as needed
-
-### Adding a New Deployment to an Existing Account
-
-1. Create a new deployment directory (e.g., `my-aws-account/prod/`)
-2. Copy `env.hcl` from an existing deployment and update:
+1. Create a new environment directory under `environments/` (e.g., `environments/my-new-env/`)
+2. Copy the three configuration files from an existing environment:
+   ```bash
+   cp -r environments/example environments/my-new-env
+   ```
+3. Update `env.hcl` with your environment name:
    ```hcl
    locals {
-     environment = "prod"
+     environment = "my-new-env"
      project     = "gen3-iac"
    }
    ```
-3. Copy `region.hcl` and `terragrunt.hcl` from an existing deployment
-4. Modify deployment-specific values in `terragrunt.hcl`
+4. Update `region.hcl` if using a different region
+5. Modify environment-specific values in `terragrunt.hcl`
 
 ### Modifying Variables
 
-1. **Account-wide Changes**: Edit the account's root `terragrunt.hcl`
-2. **Deployment-Specific**: Edit the deployment's `terragrunt.hcl`
-3. **Sensitive Values**: Use environment variables without prefix or `.env` file
+1. **Global Changes**: Edit `root.hcl` to affect all environments
+2. **Environment-Specific**: Edit the environment's `terragrunt.hcl`
+3. **Sensitive Values**: Use environment variables or `.env` file
 
 ### Configuring Environment and Project Tags
 
@@ -405,7 +400,7 @@ terragrunt apply
 
 ### State File Organization
 
-The current configuration creates an S3 bucket per AWS account with unique names:
+The configuration creates a single S3 bucket with unique names:
 
 #### Bucket Naming Strategy
 - **With AWS_ACCOUNT_ID**: `gen3-terraform-state-<8-char-hash-of-account-id>`
@@ -413,24 +408,17 @@ The current configuration creates an S3 bucket per AWS account with unique names
 
 #### State File Structure
 ```
-Account: ua-vpit-rt-rds-dev
-├── S3 Bucket: gen3-terraform-state-a1b2c3d4
-│   ├── rds-dev/terraform.tfstate
-│   └── staging/terraform.tfstate
-
-Account: another-account
-├── S3 Bucket: gen3-terraform-state-e5f6g7h8
-│   ├── dev/terraform.tfstate
-│   ├── staging/terraform.tfstate
-│   └── prod/terraform.tfstate
+S3 Bucket: gen3-terraform-state-a1b2c3d4
+├── example/terraform.tfstate
+└── ardac-portal-one/terraform.tfstate
 ```
 
 #### Benefits of This Approach
-- **Account Isolation**: Each AWS account has its own state bucket
-- **Deployment Isolation**: Each deployment has its own state file
+- **Centralized State**: Single S3 bucket for all environments
+- **Environment Isolation**: Each environment has its own state file
 - **Consistent Naming**: Predictable bucket names based on account or directory
 - **Global Uniqueness**: Hash ensures no conflicts across different setups
-- **Cost Efficiency**: One bucket per account instead of per deployment
+- **Cost Efficiency**: Single bucket shared across all environments
 
 ## Migration from Terraform
 

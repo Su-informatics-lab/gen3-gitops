@@ -3,7 +3,7 @@
 
 # Include the root terragrunt configuration
 include "root" {
-  path = find_in_parent_folders("commons_root.hcl")
+  path = find_in_parent_folders("root.hcl")
 }
 
 locals {
@@ -19,7 +19,7 @@ locals {
   # Extract environment name and project from the folder structure
   environment = local.environment_vars.locals.environment
   project     = local.environment_vars.locals.project
-  region      = local.region_vars.locals.aws_region
+  aws_region      = local.region_vars.locals.aws_region
 
   # Common tags applied to all resources
   common_tags = {
@@ -35,6 +35,7 @@ inputs = {
   # Environment identification
   vpc_name = local.environment
   hostname = "ipo.sulab.io"
+  aws_region = local.aws_region
 
   # Networking
   vpc_cidr_block    = "10.148.0.0/20"

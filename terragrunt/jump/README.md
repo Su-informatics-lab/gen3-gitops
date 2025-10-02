@@ -14,13 +14,19 @@ This directory contains Terragrunt configurations for deploying the Gen3 Admin i
 ## Structure
 
 ```
-terragrunt/
-├── terragrunt.hcl                    # Root configuration with common settings
+terragrunt/jump/
+├── root.hcl                          # Root configuration with common settings
+├── .env.example                      # Template for environment variables
+├── README.md                         # This file
 └── environments/
-    ├── dev/
-    │   └── terragrunt.hcl            # Development environment configuration
-    └── staging/
-        └── terragrunt.hcl            # Staging environment configuration
+    ├── example/
+    │   ├── env.hcl                   # Environment-specific variables
+    │   ├── region.hcl                # Region configuration
+    │   └── terragrunt.hcl            # Environment configuration
+    └── gaipo/
+        ├── env.hcl                   # Environment-specific variables
+        ├── region.hcl                # Region configuration
+        └── terragrunt.hcl            # Environment configuration
 ```
 
 ## Prerequisites
@@ -56,18 +62,18 @@ aws ssm start-session --target <instance-id> --profile <your-profile>
 
 ## Usage
 
-### Deploy to Development Environment
+### Deploy to Example Environment
 
 ```bash
-cd environments/dev
+cd environments/example
 terragrunt plan
 terragrunt apply
 ```
 
-### Deploy to Staging Environment
+### Deploy to Gaipo Environment
 
 ```bash
-cd environments/staging
+cd environments/gaipo
 terragrunt plan
 terragrunt apply
 ```
@@ -75,7 +81,7 @@ terragrunt apply
 ### Destroy Resources
 
 ```bash
-cd environments/dev
+cd environments/example
 terragrunt destroy
 ```
 
@@ -94,7 +100,7 @@ terraform/
 
 ## Configuration
 
-### Root Configuration (`terragrunt.hcl`)
+### Root Configuration (`root.hcl`)
 
 - Defines the S3 backend configuration
 - Generates the provider configuration
@@ -103,11 +109,14 @@ terraform/
 
 ### Environment Configurations
 
-Each environment has its own `terragrunt.hcl` file that:
-- Includes the root configuration
-- Points to the Terraform source code
-- Only overrides environment-specific values (typically `prefix` and `profile`)
-- Can override any other defaults as needed for specific environments
+Each environment directory contains:
+- `env.hcl`: Environment-specific variables (environment name, project name)
+- `region.hcl`: AWS region configuration
+- `terragrunt.hcl`: Environment configuration that:
+  - Includes the root configuration
+  - Points to the Terraform source code
+  - Only overrides environment-specific values
+  - Can override any other defaults as needed
 
 ### NAT Gateway Configuration
 

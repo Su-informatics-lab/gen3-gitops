@@ -3,7 +3,7 @@
 
 # Include the root terragrunt configuration
 include "root" {
-  path = find_in_parent_folders("commons_root.hcl")
+  path = find_in_parent_folders("root.hcl")
 }
 
 locals {
