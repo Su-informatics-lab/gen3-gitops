@@ -61,6 +61,4 @@ inputs = {
 
   # Default Gen3 service flags
   deploy_gen3 = false
-
-
 }
