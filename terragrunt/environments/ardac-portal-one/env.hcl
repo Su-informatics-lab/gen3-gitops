@@ -2,6 +2,6 @@
 # This file contains environment-specific settings
 
 locals {
-  environment = "gaipo-portal-one"
-  project     = "gaipo"
+  environment = "ardac-portal-one"
+  project     = "ardac"
 }
