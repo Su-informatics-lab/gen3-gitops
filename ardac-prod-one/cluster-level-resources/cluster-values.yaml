@@ -50,11 +50,11 @@ grafana-alloy:
 
 karpenter:
   enabled: true
+  awsRegion" : "us-east-2"
   targetRevision: "1.0.8"
 
 karpenter-crds:
   amiSelectorName: "1-31-EKS-FIPS*"
-  enabled: true
   selectorTag: ardac-prod-one
   migration: true
   default:
@@ -72,12 +72,10 @@ karpenter-crds:
       - key: karpenter.k8s.aws/instance-category
         operator: In
         values:
-          - r  
-      - key: karpenter.k8s.aws/instance-size
-        operator: In
-        values:
-          - xlarge
-          - 2xlarge
+          - r
+          - c
+          - m
+          - t
   jupyter:
     consolidationPolicy: "WhenEmptyOrUnderutilized"
     consolidateAfter: "10m"
