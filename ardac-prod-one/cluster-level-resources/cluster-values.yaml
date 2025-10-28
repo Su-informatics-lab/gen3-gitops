@@ -54,7 +54,7 @@ karpenter:
   targetRevision: "1.0.8"
 
 karpenter-crds:
-  amiSelectorName: "1-31-EKS-FIPS*"
+  amiSelectorName: "amazon-eks-node-al2023-x86_64-standard-1.31-*"
   selectorTag: ardac-prod-one
   migration: true
   default:
