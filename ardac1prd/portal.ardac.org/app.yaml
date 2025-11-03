@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: gen3-ardac-prod-one
+  name: gen3-ardac1prd
   namespace: argocd
 spec:
   project: default
@@ -12,8 +12,8 @@ spec:
       helm:
         releaseName: gen3
         valueFiles:
-          - $values/ardac-prod-one/new.portal.ardac.org/values.yaml
-    - repoURL: 'https://github.com/Su-informatics-lab/gen3-gitops.git
+          - $values/ardac1prd/new.portal.ardac.org/values.yaml
+    - repoURL: 'https://github.com/Su-informatics-lab/gen3-gitops.git'
       targetRevision: main
       ref: values
   destination:
