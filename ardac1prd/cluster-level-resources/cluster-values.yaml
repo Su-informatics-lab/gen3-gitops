@@ -54,6 +54,7 @@ karpenter:
 
 karpenter-crds:
   amiSelectorName: "amazon-eks-node-al2023-x86_64-standard-1.31-*"
+  enabled: true
   selectorTag: ardac1prd
   migration: true
   default:
