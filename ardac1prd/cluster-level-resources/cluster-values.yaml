@@ -54,7 +54,7 @@ karpenter:
 
 karpenter-crds:
   amiSelectorName: "EKS-FIPS*"
-  enabled: true
+  enabled: false
   selectorTag: ardac1prd
   migration: true
   default:
