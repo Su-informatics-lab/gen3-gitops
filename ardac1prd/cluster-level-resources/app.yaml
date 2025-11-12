@@ -14,7 +14,7 @@ spec:
       valueFiles:
       - $values/ardac1prd/cluster-level-resources/cluster-values.yaml
     path: helm/cluster-level-resources
-    repoURL: https://github.com/uc-cdis/gen3-helm
+    repoURL: https://github.com/Su-informatics-lab/gen3-helm
   - ref: values
     repoURL: 'https://github.com/Su-informatics-lab/gen3-gitops.git'
     targetRevision: main
