@@ -181,7 +181,7 @@ metadata:
 peregrine:
   enabled: true
   externalSecrets:
-    dbcreds: "ardac1prd-default-sheepdg-creds"
+    dbcreds: "ardac1prd-default-peregrine-creds"
 
 pidgin:
   enabled: false
