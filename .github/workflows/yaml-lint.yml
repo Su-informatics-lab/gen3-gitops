@@ -41,7 +41,7 @@ jobs:
       - name: Run yamllint on changed files
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |
-          echo "Changed YAML files:" 
+          echo "Changed YAML files:"
           echo "${{ steps.changed-files.outputs.all_changed_files }}"
           # Use GitHub annotations-friendly format
           yamllint -f github ${{ steps.changed-files.outputs.all_changed_files }}
