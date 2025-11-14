@@ -19,7 +19,7 @@ global:
   environment: "ardac1prd"
   hostname: "new.portal.ardac.org"
   revproxyArn: "arn:aws:acm:us-east-1:742378880825:certificate/a95a18e1-30f3-4608-8b87-ab634966b944"
-  dictionaryUrl: "https://s3.amazonaws.com/dictionary-artifacts/datadictionary/develop/schema.json"
+  dictionaryUrl: "https://dictionary.ardac.org/2.1.1/schema.json"
   portalApp: gitops
   publicDataSets: false
   tierAccessLevel: "private"
