@@ -2,6 +2,8 @@ name: YAML Lint
 
 on:
   pull_request:
+    branches:
+      - main
     # Run only when YAML files are touched in a PR
     paths:
       - '**/*.yml'
