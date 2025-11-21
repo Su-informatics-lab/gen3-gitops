@@ -115,15 +115,15 @@ hatchery:
         HOSTNAME: "{{ .Values.global.hostname }}"
       args: []
       command:
-      - "/bin/bash"
-      - "./sidecar.sh"
+        - "/bin/bash"
+        - "./sidecar.sh"
       lifecycle-pre-stop:
-      - su
-      - "-c"
-      - echo test
-      - "-s"
-      - "/bin/sh"
-      - root
+        - su
+        - "-c"
+        - echo test
+        - "-s"
+        - "/bin/sh"
+        - root
     containers:
       -
         target-port: 8888
@@ -134,22 +134,21 @@ hatchery:
         env:
           FRAME_ANCESTORS: https://{{ .Values.global.hostname }}
         args:
-        - "--NotebookApp.base_url=/lw-workspace/proxy/"
-        - "--NotebookApp.default_url=/lab"
-        - "--NotebookApp.password=''" #pragma: allowlist secret
-        - "--NotebookApp.token=''"
-        - "--NotebookApp.shutdown_no_activity_timeout=5400"
-        - "--NotebookApp.quit_button=False"
+          - "--NotebookApp.base_url=/lw-workspace/proxy/"
+          - "--NotebookApp.default_url=/lab"
+          - "--NotebookApp.password=''" #pragma: allowlist secret
+          - "--NotebookApp.token=''"
+          - "--NotebookApp.shutdown_no_activity_timeout=5400"
+          - "--NotebookApp.quit_button=False"
         command:
-        - start-notebook.sh
+          - start-notebook.sh
         path-rewrite: "/lw-workspace/proxy/"
         use-tls: 'false'
         ready-probe: "/lw-workspace/proxy/"
         lifecycle-post-start:
-        - "/bin/sh"
-        - "-c"
-        - export IAM=`whoami`; rm -rf /home/$IAM/pd/dockerHome; rm -rf /home/$IAM/pd/lost+found;
-          ln -s /data /home/$IAM/pd/; true
+          - "/bin/sh"
+          - "-c"
+          - export IAM=`whoami`; rm -rf /home/$IAM/pd/dockerHome; rm -rf /home/$IAM/pd/lost+found; ln -s /data /home/$IAM/pd/; true
         user-uid: 1000
         fs-gid: 100
         user-volume-location: "/home/jovyan/pd"
