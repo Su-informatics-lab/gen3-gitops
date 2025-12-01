@@ -180,7 +180,7 @@ metadata:
 peregrine:
   enabled: true
   externalSecrets:
-    dbcreds: "ardac1dmo-default-sheepdg-creds"
+    dbcreds: "ardac1dmo-default-peregrine-creds"
 
 pidgin:
   enabled: false
