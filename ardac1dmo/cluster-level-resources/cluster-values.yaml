@@ -1,6 +1,6 @@
 cluster: "ardac1dmo"
 
-accountNumber: "demo.ardac.org"
+accountNumber: "613495871066"
 
 alb-controller:
   enabled: true
