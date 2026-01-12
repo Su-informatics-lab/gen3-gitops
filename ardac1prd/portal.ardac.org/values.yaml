@@ -212,4 +212,4 @@ wts:
   enabled: true
   externalSecrets:
     dbcreds: "ardac1prd-default-wts-creds"
-    createK8sWtsSecret: true
+    createWtsOidcClientSecret: false
