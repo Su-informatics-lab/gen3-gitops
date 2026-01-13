@@ -48,7 +48,7 @@ audit:
       eks.amazonaws.com/role-arn: "arn:aws:iam::613495871066:role/gen3_service/ardac1dmo-default-audit-sa"
   externalSecrets:
     dbcreds: "ardac1dmo-default-audit-creds"
-    createK8sAuditSecret: true
+    createWtsOidcClientSecret: false
 
 
 aws-es-proxy:
