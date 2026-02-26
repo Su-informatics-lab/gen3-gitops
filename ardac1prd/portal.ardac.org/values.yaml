@@ -199,6 +199,7 @@ revproxy:
 
 sheepdog:
   enabled: true
+  replicaCount: 5
   externalSecrets:
     dbcreds: "ardac1prd-default-sheepdog-creds"
 
