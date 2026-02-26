@@ -19,7 +19,7 @@ global:
   environment: "ardac1dmo"
   hostname: "demo.ardac.org"
   revproxyArn: "arn:aws:acm:us-east-1:613495871066:certificate/10b65e61-ccac-4aec-affc-75471e3f5d61"
-  dictionaryUrl: "https://dictionary.ardac.org/2.1.1/schema.json"
+  dictionaryUrl: "https://dictionary.ardac.org/2.2.2/schema.json"
   portalApp: gitops
   publicDataSets: false
   tierAccessLevel: "private"
