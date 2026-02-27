@@ -19,7 +19,7 @@ global:
   environment: "ardac1prd"
   hostname: "new.portal.ardac.org"
   revproxyArn: "arn:aws:acm:us-east-1:742378880825:certificate/a95a18e1-30f3-4608-8b87-ab634966b944"
-  dictionaryUrl: "https://dictionary.ardac.org/2.2.1/schema.json"
+  dictionaryUrl: "https://dictionary.ardac.org/2.2.2/schema.json"
   portalApp: gitops
   publicDataSets: false
   tierAccessLevel: "private"
@@ -102,23 +102,23 @@ grafana:
 guppy:
   enabled: true
   guppyConfig:
-      indices:
-        - index: ardac_case
-          type: case
-        - index: ardac_follow_up
-          type: follow_up
-        - index: ardac_biospecimen
-          type: aliquot
-        - index: ardac_lab_result
-          type: molecular_test
-        - index: ardac_lab
-          type: lab
-      configIndex:
-        - ardac_case-array-config
-        - ardac_follow_up-array-config
-        - ardac_biospecimen-array-config
-        - ardac_lab_result-array-config
-        - ardac_lab-array-config
+    indices:
+      - index: ardac_case
+        type: case
+      - index: ardac_follow_up
+        type: follow_up
+      - index: ardac_biospecimen
+        type: aliquot
+      - index: ardac_lab_result
+        type: molecular_test
+      - index: ardac_lab
+        type: lab
+    configIndex:
+      - ardac_case-array-config
+      - ardac_follow_up-array-config
+      - ardac_biospecimen-array-config
+      - ardac_lab_result-array-config
+      - ardac_lab-array-config
 
 
 hatchery:
@@ -1518,8 +1518,7 @@ etl:
         memory: "2Gi"
       limits:
         cpu: "1000m"
-        memory: "4Gi"
-        
+        memory: "4Gi"       
   etlMapping: 
     mappings:
       - name: ardac_case
