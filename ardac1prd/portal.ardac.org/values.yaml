@@ -44,7 +44,7 @@ argo-wrapper:
 audit:
   enabled: true
   serviceAccount:
-    annotations: 
+    annotations:
       eks.amazonaws.com/role-arn: "arn:aws:iam::742378880825:role/gen3_service/ardac1prd-default-audit-sa"
   externalSecrets:
     dbcreds: "ardac1prd-default-audit-creds"
@@ -134,18 +134,17 @@ hatchery:
         HOSTNAME: "{{ .Values.global.hostname }}"
       args: []
       command:
-      - "/bin/bash"
-      - "./sidecar.sh"
+        - "/bin/bash"
+        - "./sidecar.sh"
       lifecycle-pre-stop:
-      - su
-      - "-c"
-      - echo test
-      - "-s"
-      - "/bin/sh"
-      - root
+        - su
+        - "-c"
+        - echo test
+        - "-s"
+        - "/bin/sh"
+        - root
     containers:
-      -
-        target-port: 8888
+      - target-port: 8888
         cpu-limit: '1.0'
         memory-limit: 2Gi
         name: "(Tutorials) Example Analysis Jupyter Lab Notebooks"
@@ -153,22 +152,26 @@ hatchery:
         env:
           FRAME_ANCESTORS: https://{{ .Values.global.hostname }}
         args:
-        - "--NotebookApp.base_url=/lw-workspace/proxy/"
-        - "--NotebookApp.default_url=/lab"
-        - "--NotebookApp.password=''" #pragma: allowlist secret
-        - "--NotebookApp.token=''"
-        - "--NotebookApp.shutdown_no_activity_timeout=5400"
-        - "--NotebookApp.quit_button=False"
+          - "--NotebookApp.base_url=/lw-workspace/proxy/"
+          - "--NotebookApp.default_url=/lab"
+          - "--NotebookApp.password=''"  # pragma: allowlist secret
+          - "--NotebookApp.token=''"
+          - "--NotebookApp.shutdown_no_activity_timeout=5400"
+          - "--NotebookApp.quit_button=False"
         command:
-        - start-notebook.sh
+          - start-notebook.sh
         path-rewrite: "/lw-workspace/proxy/"
         use-tls: 'false'
         ready-probe: "/lw-workspace/proxy/"
         lifecycle-post-start:
-        - "/bin/sh"
-        - "-c"
-        - export IAM=`whoami`; rm -rf /home/$IAM/pd/dockerHome; rm -rf /home/$IAM/pd/lost+found;
-          ln -s /data /home/$IAM/pd/; true
+          - "/bin/sh"
+          - "-c"
+          - >
+            export IAM=`whoami`;
+            rm -rf /home/$IAM/pd/dockerHome;
+            rm -rf /home/$IAM/pd/lost+found;
+            ln -s /data /home/$IAM/pd/;
+            true
         user-uid: 1000
         fs-gid: 100
         user-volume-location: "/home/jovyan/pd"
@@ -1518,8 +1521,8 @@ etl:
         memory: "2Gi"
       limits:
         cpu: "1000m"
-        memory: "4Gi"       
-  etlMapping: 
+        memory: "4Gi"
+  etlMapping:
     mappings:
       - name: ardac_case
         doc_type: case
@@ -1552,33 +1555,33 @@ etl:
             props:
               - name: gender
                 value_mappings:
-                - female: Female
-                - male: Male
-                - unknown: Unknown
-                - unspecified: Unspecified
-                - not reported: Not reported
-                - None: None
+                  - female: Female
+                  - male: Male
+                  - unknown: Unknown
+                  - unspecified: Unspecified
+                  - not reported: Not reported
+                  - None: None
               - name: race
                 value_mappings:
-                - white: White
-                - black or african american: Black or African American
-                - asian: Asian
-                - american indian or alaska native: American Indian or Alaska Native
-                - native hawaiian or other pacific islander: Native Hawaiian or other Pacific Islander
-                - other: Other
-                - Unknown: Unknown
-                - More than one race: More than one race
-                - not reported: Not reported
-                - not allowed to contact: Not allowed to contact
-                - None: None
+                  - white: White
+                  - black or african american: Black or African American
+                  - asian: Asian
+                  - american indian or alaska native: American Indian or Alaska Native
+                  - native hawaiian or other pacific islander: Native Hawaiian or other Pacific Islander
+                  - other: Other
+                  - Unknown: Unknown
+                  - More than one race: More than one race
+                  - not reported: Not reported
+                  - not allowed to contact: Not allowed to contact
+                  - None: None
               - name: ethnicity
                 value_mappings:
-                - not hispanic or latino: Not Hispanic or Latino
-                - hispanic or latino: Hispanic or Latino
-                - Unknown: Unknown
-                - not reported: Not reported
-                - not allowed to collect: Not allowed to collect
-                - None: None
+                  - not hispanic or latino: Not Hispanic or Latino
+                  - hispanic or latino: Hispanic or Latino
+                  - Unknown: Unknown
+                  - not reported: Not reported
+                  - not allowed to collect: Not allowed to collect
+                  - None: None
               - name: year_of_birth
               - name: age_at_index
           - path: audits
@@ -1650,12 +1653,12 @@ etl:
                   - Healthy Donor: Healthy Controls
           - path: demographics[gender,race,ethnicity,year_of_birth,age_at_index]
             value_mappings:
-            - female: Female
-            - male: Male
-            - unknown: Unknown
-            - unspecified: Unspecified
-            - not reported: Not reported
-            - None: None
+              - female: Female
+              - male: Male
+              - unknown: Unknown
+              - unspecified: Unspecified
+              - not reported: Not reported
+              - None: None
         doc_type: follow_up
         type: aggregator
         root: follow_up
@@ -1686,7 +1689,7 @@ etl:
           - name: tlfb_number_drinks
           - name: varices
           - name: varices_diagnosis_date
-          - name: weight         
+          - name: weight
         aggregated_props:
           - name: laboratory_test
             path: molecular_tests
@@ -1749,5 +1752,3 @@ etl:
             path: aliquots.molecular_tests
             src: laboratory_test
             fn: set
-
-
