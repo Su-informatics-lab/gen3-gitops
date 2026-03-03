@@ -1238,4 +1238,3 @@ wts:
   externalSecrets:
     dbcreds: "ardac1dmo-default-wts-creds"
     createWtsOidcClientSecret: false
-
