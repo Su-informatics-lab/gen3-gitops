@@ -1223,6 +1223,7 @@ revproxy:
 
 sheepdog:
   enabled: true
+  replicaCount: 5
   externalSecrets:
     dbcreds: "ardac1dmo-default-sheepdog-creds"
 
@@ -1237,4 +1238,3 @@ wts:
   externalSecrets:
     dbcreds: "ardac1dmo-default-wts-creds"
     createWtsOidcClientSecret: false
-
