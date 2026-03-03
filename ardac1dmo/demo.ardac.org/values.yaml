@@ -1223,6 +1223,7 @@ revproxy:
 
 sheepdog:
   enabled: true
+  replicaCount: 5
   externalSecrets:
     dbcreds: "ardac1dmo-default-sheepdog-creds"
 
