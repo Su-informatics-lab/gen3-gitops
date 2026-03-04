@@ -99,24 +99,23 @@ grafana:
 
 guppy:
   enabled: true
-  guppyConfig:
-    indices:
-      - index: ardac_case
-        type: case
-      - index: ardac_follow_up
-        type: follow_up
-      - index: ardac_biospecimen
-        type: aliquot
-      - index: ardac_lab_result
-        type: molecular_test
-      - index: ardac_lab
-        type: lab
-    configIndex:
-      - ardac_case-array-config
-      - ardac_follow_up-array-config
-      - ardac_biospecimen-array-config
-      - ardac_lab_result-array-config
-      - ardac_lab-array-config
+  indices:
+    - index: ardac_case
+      type: case
+    - index: ardac_follow_up
+      type: follow_up
+    - index: ardac_biospecimen
+      type: aliquot
+    - index: ardac_lab_result
+      type: molecular_test
+    - index: ardac_lab
+      type: lab
+  configIndex:
+    - ardac_case-array-config
+    - ardac_follow_up-array-config
+    - ardac_biospecimen-array-config
+    - ardac_lab_result-array-config
+    - ardac_lab-array-config
 
 hatchery:
   enabled: true
