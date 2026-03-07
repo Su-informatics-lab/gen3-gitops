@@ -207,7 +207,7 @@ portal:
   enabled: true
   image:
     repository: bearbbhao/ardac-portal
-    tag: "1_1_11"
+    tag: "1_1_12"
   gitops:
     json: |
       {
