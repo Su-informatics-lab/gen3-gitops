@@ -36,6 +36,8 @@ ambassador:
 
 arborist:
   enabled: true
+  image:
+    tag: "2026.03"
   externalSecrets:
     dbcreds: "ardac1prd-default-arborist-creds"
 
@@ -44,6 +46,8 @@ argo-wrapper:
 
 audit:
   enabled: true
+  image:
+    tag: "2026.03"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: "arn:aws:iam::742378880825:role/gen3_service/ardac1prd-default-audit-sa"
@@ -53,6 +57,8 @@ audit:
 
 aws-es-proxy:
   enabled: true
+  image:
+    tag: "2026.03"
   esEndpoint: "vpc-ardac1prd-gen3-metadata-34ztrt3iey3wvgd36nrpf5gk5m.us-east-1.es.amazonaws.com"
   externalSecrets:
     awsCreds: "ardac1prd-default-aws-es-proxy-creds"
@@ -69,6 +75,8 @@ dicom-viewer:
 
 fence:
   enabled: true
+  image:
+    tag: "2026.03"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: "arn:aws:iam::742378880825:role/gen3_service/ardac1prd-default-fence-sa"
@@ -100,6 +108,8 @@ grafana:
 
 guppy:
   enabled: true
+  image:
+    tag: "2026.03"
   indices:
     - index: ardac_case
       type: case
@@ -120,6 +130,8 @@ guppy:
 
 hatchery:
   enabled: true
+  image:
+    tag: "2026.03"
 
   hatchery:
     sidecarContainer:
@@ -176,6 +188,8 @@ hatchery:
 
 indexd:
   enabled: true
+  image:
+    tag: "2026.03"
   defaultPrefix: "dg.XXXX/"
   externalSecrets:
     dbcreds: "ardac1prd-default-indexd-creds"
@@ -183,6 +197,8 @@ indexd:
 
 manifestservice:
   enabled: true
+  image:
+    tag: "2026.03"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: "arn:aws:iam::742378880825:role/gen3_service/ardac1prd-default-manifestservice-sa"
@@ -197,6 +213,8 @@ metadata:
 
 peregrine:
   enabled: true
+  image:
+    tag: "2026.03"
   externalSecrets:
     dbcreds: "ardac1prd-default-peregrine-creds"
 
@@ -1482,9 +1500,13 @@ requestor:
 
 revproxy:
   enabled: true
+  image:
+    tag: "2026.03"
 
 sheepdog:
   enabled: true
+  image:
+    tag: "2026.03"
   replicaCount: 5
   externalSecrets:
     dbcreds: "ardac1prd-default-sheepdog-creds"
@@ -1497,6 +1519,8 @@ sower:
 
 wts:
   enabled: true
+  image:
+    tag: "2026.03"
   externalSecrets:
     dbcreds: "ardac1prd-default-wts-creds"
     createWtsOidcClientSecret: false
