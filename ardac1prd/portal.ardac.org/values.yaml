@@ -37,6 +37,7 @@ ambassador:
 arborist:
   enabled: true
   image:
+    repository: quay.io/cdis/arborist
     tag: "2026.03"
   externalSecrets:
     dbcreds: "ardac1prd-default-arborist-creds"
@@ -47,6 +48,7 @@ argo-wrapper:
 audit:
   enabled: true
   image:
+    repository: quay.io/cdis/audit-service
     tag: "2026.03"
   serviceAccount:
     annotations:
@@ -58,6 +60,7 @@ audit:
 aws-es-proxy:
   enabled: true
   image:
+    repository: quay.io/cdis/aws-es-proxy
     tag: "2026.03"
   esEndpoint: "vpc-ardac1prd-gen3-metadata-34ztrt3iey3wvgd36nrpf5gk5m.us-east-1.es.amazonaws.com"
   externalSecrets:
@@ -76,6 +79,7 @@ dicom-viewer:
 fence:
   enabled: true
   image:
+    repository: quay.io/cdis/fence
     tag: "2026.03"
   serviceAccount:
     annotations:
@@ -109,6 +113,7 @@ grafana:
 guppy:
   enabled: true
   image:
+    repository: quay.io/cdis/guppy
     tag: "2026.03"
   indices:
     - index: ardac_case
@@ -131,6 +136,7 @@ guppy:
 hatchery:
   enabled: true
   image:
+    repository: quay.io/cdis/hatchery
     tag: "2026.03"
 
   hatchery:
@@ -189,6 +195,7 @@ hatchery:
 indexd:
   enabled: true
   image:
+    repository: quay.io/cdis/indexd
     tag: "2026.03"
   defaultPrefix: "dg.XXXX/"
   externalSecrets:
@@ -198,6 +205,7 @@ indexd:
 manifestservice:
   enabled: true
   image:
+    repository: quay.io/cdis/manifestservice
     tag: "2026.03"
   serviceAccount:
     annotations:
@@ -214,6 +222,7 @@ metadata:
 peregrine:
   enabled: true
   image:
+    repository: quay.io/cdis/peregrine
     tag: "2026.03"
   externalSecrets:
     dbcreds: "ardac1prd-default-peregrine-creds"
@@ -1501,11 +1510,13 @@ requestor:
 revproxy:
   enabled: true
   image:
+    repository: quay.io/cdis/nginx
     tag: "2026.03"
 
 sheepdog:
   enabled: true
   image:
+    repository: quay.io/cdis/sheepdog
     tag: "2026.03"
   replicaCount: 5
   externalSecrets:
@@ -1520,6 +1531,7 @@ sower:
 wts:
   enabled: true
   image:
+    repository: quay.io/cdis/workspace-token-service
     tag: "2026.03"
   externalSecrets:
     dbcreds: "ardac1prd-default-wts-creds"
