@@ -60,7 +60,7 @@ aws-es-proxy:
   enabled: true
   image:
     repository: "quay.io/cdis/aws-es-proxy"
-    tag: "2026.03"
+    tag: "master"
   esEndpoint: "vpc-ardac1dmo-gen3-metadata-r5fevwf45ert54xbwhb3omlvsm.us-east-1.es.amazonaws.com"
   externalSecrets:
     awsCreds: "ardac1dmo-default-aws-es-proxy-creds"
