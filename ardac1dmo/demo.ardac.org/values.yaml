@@ -35,6 +35,9 @@ ambassador:
 
 arborist:
   enabled: true
+  image:
+    repository: "quay.io/cdis/arborist"
+    tag: "2026.03"
   externalSecrets:
     dbcreds: "ardac1dmo-default-arborist-creds"
 
@@ -43,6 +46,9 @@ argo-wrapper:
 
 audit:
   enabled: true
+  image:
+    repository: "quay.io/cdis/audit-service"
+    tag: "2026.03"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: "arn:aws:iam::613495871066:role/gen3_service/ardac1dmo-default-audit-sa"
@@ -52,6 +58,9 @@ audit:
 
 aws-es-proxy:
   enabled: true
+  image:
+    repository: "quay.io/cdis/aws-es-proxy"
+    tag: "2026.03"
   esEndpoint: "vpc-ardac1dmo-gen3-metadata-r5fevwf45ert54xbwhb3omlvsm.us-east-1.es.amazonaws.com"
   externalSecrets:
     awsCreds: "ardac1dmo-default-aws-es-proxy-creds"
@@ -69,6 +78,9 @@ dicom-viewer:
 
 fence:
   enabled: true
+  image:
+    repository: "quay.io/cdis/fence"
+    tag: "2026.03"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: "arn:aws:iam::613495871066:role/gen3_service/ardac1dmo-default-fence-sa"
@@ -103,6 +115,13 @@ guppy:
 
 hatchery:
   enabled: true
+  image:
+    repository: "quay.io/cdis/hatchery"
+    tag: "2026.03"
+  fence:
+    image:
+      repository: "quay.io/cdis/fence"
+      tag: "2026.03"
 
   hatchery:
     sidecarContainer:
@@ -156,6 +175,9 @@ hatchery:
 
 indexd:
   enabled: true
+  image:
+    repository: "quay.io/cdis/indexd"
+    tag: "2026.03"
   defaultPrefix: "dg.XXXX/"
   externalSecrets:
     dbcreds: "ardac1dmo-default-indexd-creds"
@@ -164,6 +186,9 @@ indexd:
 
 manifestservice:
   enabled: true
+  image:
+    repository: "quay.io/cdis/manifestservice"
+    tag: "2026.03"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: "arn:aws:iam::613495871066:role/gen3_service/ardac1dmo-default-manifestservice-sa"
@@ -178,6 +203,9 @@ metadata:
 
 peregrine:
   enabled: true
+  image:
+    repository: "quay.io/cdis/peregrine"
+    tag: "2026.03"
   externalSecrets:
     dbcreds: "ardac1dmo-default-peregrine-creds"
 
@@ -1220,9 +1248,15 @@ requestor:
 
 revproxy:
   enabled: true
+  image:
+    repository: "quay.io/cdis/nginx"
+    tag: "2026.03"
 
 sheepdog:
   enabled: true
+  image:
+    repository: "quay.io/cdis/sheepdog"
+    tag: "2026.03"
   replicaCount: 5
   externalSecrets:
     dbcreds: "ardac1dmo-default-sheepdog-creds"
@@ -1235,6 +1269,9 @@ sower:
 
 wts:
   enabled: true
+  image:
+    repository: "quay.io/cdis/workspace-token-service"
+    tag: "2026.03"
   externalSecrets:
     dbcreds: "ardac1dmo-default-wts-creds"
     createWtsOidcClientSecret: false
