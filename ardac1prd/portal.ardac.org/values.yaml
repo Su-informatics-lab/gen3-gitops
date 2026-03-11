@@ -61,6 +61,7 @@ aws-es-proxy:
   enabled: true
   image:
     repository: quay.io/cdis/aws-es-proxy
+    # quay.io/cdis/aws-es-proxy does not publish immutable release tags; "master" is the only available tag
     tag: "master"
   esEndpoint: "vpc-ardac1prd-gen3-metadata-34ztrt3iey3wvgd36nrpf5gk5m.us-east-1.es.amazonaws.com"
   externalSecrets:
