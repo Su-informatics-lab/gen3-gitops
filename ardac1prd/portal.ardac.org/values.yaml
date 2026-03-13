@@ -33,9 +33,11 @@ global:
 
 ambassador:
   enabled: true
+  replicaCount: 2
 
 arborist:
   enabled: true
+  replicaCount: 2
   image:
     repository: quay.io/cdis/arborist
     tag: "2026.03"
@@ -47,6 +49,7 @@ argo-wrapper:
 
 audit:
   enabled: true
+  replicaCount: 2
   image:
     repository: quay.io/cdis/audit-service
     tag: "2026.03"
@@ -59,6 +62,7 @@ audit:
 
 aws-es-proxy:
   enabled: true
+  replicaCount: 2
   image:
     repository: quay.io/cdis/aws-es-proxy
     tag: "master"
@@ -78,6 +82,7 @@ dicom-viewer:
 
 fence:
   enabled: true
+  replicaCount: 2
   image:
     repository: quay.io/cdis/fence
     tag: "2026.03"
@@ -112,6 +117,7 @@ grafana:
 
 guppy:
   enabled: true
+  replicaCount: 2
   image:
     repository: quay.io/cdis/guppy
     tag: "2026.03"
@@ -135,6 +141,7 @@ guppy:
 
 hatchery:
   enabled: true
+  replicaCount: 2
   image:
     repository: quay.io/cdis/hatchery
     tag: "2026.03"
@@ -194,6 +201,7 @@ hatchery:
 
 indexd:
   enabled: true
+  replicaCount: 2
   image:
     repository: quay.io/cdis/indexd
     tag: "2026.03"
@@ -204,6 +212,7 @@ indexd:
 
 manifestservice:
   enabled: true
+  replicaCount: 2
   image:
     repository: quay.io/cdis/manifestservice
     tag: "2026.03"
@@ -215,12 +224,14 @@ manifestservice:
 
 metadata:
   enabled: true
+  replicaCount: 2
   externalSecrets:
     dbcreds: "ardac1prd-default-metadata-creds"
     createK8sMetadataSecret: true
 
 peregrine:
   enabled: true
+  replicaCount: 2
   image:
     repository: quay.io/cdis/peregrine
     tag: "2026.03"
@@ -232,6 +243,7 @@ pidgin:
 
 portal:
   enabled: true
+  replicaCount: 2
   image:
     repository: bearbbhao/ardac-portal
     tag: "1_1_12"
@@ -1506,6 +1518,7 @@ requestor:
 
 revproxy:
   enabled: true
+  replicaCount: 2
   image:
     repository: quay.io/cdis/nginx
     tag: "2026.03"
@@ -1527,6 +1540,7 @@ sower:
 
 wts:
   enabled: true
+  replicaCount: 2
   image:
     repository: quay.io/cdis/workspace-token-service
     tag: "2026.03"
