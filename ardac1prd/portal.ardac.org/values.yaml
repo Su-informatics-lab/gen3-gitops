@@ -132,12 +132,15 @@ guppy:
       type: molecular_test
     - index: ardac_lab
       type: lab
+    - index: file_collect_index
+      type: file
   configIndex:
     - ardac_case-array-config
     - ardac_follow_up-array-config
     - ardac_biospecimen-array-config
     - ardac_lab_result-array-config
     - ardac_lab-array-config
+    - file_collect_index-array-config
 
 hatchery:
   enabled: true
@@ -1238,6 +1241,124 @@ portal:
               ],
               "accessibleValidationField": "project_id"
             }
+          },
+          {
+            "tabTitle": "Data Files",
+            "charts": {
+              "experimental_strategy": {
+                "chartType": "bar",
+                "title": "Experimental Strategy"
+              },
+              "data_category": {
+                "chartType": "pie",
+                "title": "Data Category"
+              },
+              "data_type": {
+                "chartType": "bar",
+                "title": "Data Type"
+              },
+              "data_format": {
+                "chartType": "pie",
+                "title": "Data Format"
+              }
+            },
+            "filters": {
+              "tabs": [
+                {
+                  "title": "Data File",
+                  "fields": [
+                    "experimental_strategy",
+                    "data_category",
+                    "data_type",
+                    "data_format"
+                  ]
+                }
+              ]
+            },
+            "table": {
+              "enabled": true,
+              "fields": [
+                "submitter_id",
+                "file_name",
+                "experimental_strategy",
+                "data_category",
+                "data_type",
+                "data_format"
+              ]
+            },
+            "dropdowns": {
+              "download": {
+                "title": "Download"
+              }
+            },
+            "buttons": [
+              {
+                "enabled": true,
+                "type": "manifest",
+                "title": "Download Manifest",
+                "leftIcon": "datafile",
+                "rightIcon": "download",
+                "fileName": "manifest.json",
+                "dropdownId": "download"
+              },
+              {
+                "enabled": true,
+                "type": "data-json",
+                "title": "Download Metadata (JSON)",
+                "leftIcon": "datafile",
+                "rightIcon": "download",
+                "fileName": "data_files.json",
+                "dropdownId": "download"
+              }
+            ],
+            "guppyConfig": {
+              "dataType": "file",
+              "nodeCountTitle": "File_collections",
+              "fieldMapping": [
+                {
+                  "field": "pat_id",
+                  "name": "Patient Id"
+                },
+                {
+                  "field": "visit_day",
+                  "name": "Assessment Date"
+                },
+                {
+                  "field": "study_site",
+                  "name": "Clinical site"
+                },
+                {
+                  "field": "case_arm",
+                  "name": "Treatment Arm"
+                },
+                {
+                  "field": "project_id",
+                  "name": "Project"
+                },
+                {
+                  "field": "observational",
+                  "name": "Observational"
+                },
+                {
+                  "field": "clinical_trial",
+                  "name": "Clinical Trial"
+                },
+                {
+                  "field": "gender",
+                  "name": "sex"
+                }
+              ],
+              "manifestMapping": {
+                "resourceIndexType": "file",
+                "resourceIdField": "object_id",
+                "referenceIdFieldInResourceIndex": "_case_id",
+                "referenceIdFieldInDataIndex": "_case_id"
+              },
+              "accessibleFieldCheckList": [
+                "project_id"
+              ],
+              "accessibleValidationField": "project_id"
+            }
           }
         ],
         "featureFlags": {
@@ -1694,7 +1815,7 @@ etl:
                   - Heavy Drinker with Alcoholic Hepatits: AH cases
                   - Heavy Drinker without Alcoholic Hepatits: Heavy Drinking Controls
                   - Healthy Donor: Healthy Controls
-          - path: demographics[gender,race,ethnicity,year_of_birth,age_at_index]
+          - path: cases.demographics[gender,race,ethnicity,year_of_birth,age_at_index]
             value_mappings:
               - female: Female
               - male: Male
@@ -1756,7 +1877,7 @@ etl:
           - path: follow_ups[follow_up_id:submitter_id, visit_day].cases[pat_id:submitter_id, case_arm:actarm].studies[study_name, study_id:submitter_id]
           - path: follow_ups.cases[pat_id:submitter_id, case_arm:actarm, case_group:cohort, study_site, aki_status, days_180_aki, days_180_survival, days_90_aki, days_90_survival, days_to_aki]
           - path: labs[lab_id:submitter_id, lab_name:name_of_institute, PI_name]
-          - path: follow_ups.demographics[gender, race, ethnicity, year_of_birth, age_at_index]
+          - path: follow_ups.cases.demographics[gender, race, ethnicity, year_of_birth, age_at_index]
 
       - name: ardac_lab_result
         doc_type: molecular_test
@@ -1765,7 +1886,7 @@ etl:
         parent_props:
           - path: follow_ups[follow_up_id:submitter_id, visit_day].cases[pat_id:submitter_id, case_arm:actarm].studies[study_name, study_id:submitter_id]
           - path: follow_ups.cases[pat_id:submitter_id, case_arm:actarm, case_group:cohort, study_site, aki_status, days_180_aki, days_180_survival, days_90_aki, days_90_survival, days_to_aki]
-          - path: follow_ups.demographics[gender, race, ethnicity, year_of_birth, age_at_index]
+          - path: follow_ups.cases.demographics[gender, race, ethnicity, year_of_birth, age_at_index]
           - path: aliquots.labs[lab_id:submitter_id, lab_name:name_of_institute, PI_name]
         props:
           - name: project_id
@@ -1795,3 +1916,17 @@ etl:
             path: aliquots.molecular_tests
             src: laboratory_test
             fn: set
+
+      - name: file_collect_index
+        doc_type: file
+        type: collector
+        category: data_file
+        root: None
+        props:
+          - name: submitter_id
+          - name: file_name
+          - name: experimental_strategy
+          - name: data_category
+          - name: data_type
+          - name: data_format
+          - name: source_node
