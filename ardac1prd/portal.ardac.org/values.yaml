@@ -1768,7 +1768,7 @@ etl:
                   - Heavy Drinker with Alcoholic Hepatits: AH cases
                   - Heavy Drinker without Alcoholic Hepatits: Heavy Drinking Controls
                   - Healthy Donor: Healthy Controls
-          - path: cases.demographics[gender,race,ethnicity,year_of_birth,age_at_index]
+          - path: demographics[gender,race,ethnicity,year_of_birth,age_at_index]
             value_mappings:
               - female: Female
               - male: Male
@@ -1830,7 +1830,7 @@ etl:
           - path: follow_ups[follow_up_id:submitter_id, visit_day].cases[pat_id:submitter_id, case_arm:actarm].studies[study_name, study_id:submitter_id]
           - path: follow_ups.cases[pat_id:submitter_id, case_arm:actarm, case_group:cohort, study_site, aki_status, days_180_aki, days_180_survival, days_90_aki, days_90_survival, days_to_aki]
           - path: labs[lab_id:submitter_id, lab_name:name_of_institute, PI_name]
-          - path: follow_ups.cases.demographics[gender, race, ethnicity, year_of_birth, age_at_index]
+          - path: follow_ups.demographics[gender, race, ethnicity, year_of_birth, age_at_index]
 
       - name: ardac_lab_result
         doc_type: molecular_test
@@ -1839,7 +1839,7 @@ etl:
         parent_props:
           - path: follow_ups[follow_up_id:submitter_id, visit_day].cases[pat_id:submitter_id, case_arm:actarm].studies[study_name, study_id:submitter_id]
           - path: follow_ups.cases[pat_id:submitter_id, case_arm:actarm, case_group:cohort, study_site, aki_status, days_180_aki, days_180_survival, days_90_aki, days_90_survival, days_to_aki]
-          - path: follow_ups.cases.demographics[gender, race, ethnicity, year_of_birth, age_at_index]
+          - path: follow_ups.demographics[gender, race, ethnicity, year_of_birth, age_at_index]
           - path: aliquots.labs[lab_id:submitter_id, lab_name:name_of_institute, PI_name]
         props:
           - name: project_id
