@@ -514,7 +514,9 @@ portal:
                   "fields": [
                     "drinking_frequency",
                     "drinks_per_day",
-                    "frequency_of_heavy_drinking"
+                    "frequency_of_heavy_drinking",
+                    "tlfb_drinking_days",
+                    "tlfb_number_drinks"
                   ]
                 },
                 {
@@ -712,6 +714,14 @@ portal:
               "infection_screen_done": {
                 "chartType": "pie",
                 "title": "Infection Screen Done"
+              },
+              "tlfb_drinking_days": {
+                "chartType": "bar",
+                "title": "TLFB Drinking Days"
+              },
+              "tlfb_number_drinks": {
+                "chartType": "bar",
+                "title": "TLFB Number of Drinks"
               }
             },
             "filters": {
@@ -733,7 +743,9 @@ portal:
                     "child_pugh_score",
                     "lille_score",
                     "maddreys_score",
-                    "meld_score"
+                    "meld_score",
+                    "tlfb_drinking_days",
+                    "tlfb_number_drinks"
                   ]
                 },
                 {
@@ -781,6 +793,8 @@ portal:
                 "meld_score",
                 "case_arm",
                 "case_group",
+                "tlfb_drinking_days",
+                "tlfb_number_drinks",
                 "liver_transplant",
                 "infection_screen_done"
               ]
@@ -1804,6 +1818,12 @@ etl:
             path: follow_ups
             src: tlfb_drinking_days
             fn: list
+            type: integer
+          - name: tlfb_number_drinks
+            path: follow_ups
+            src: tlfb_number_drinks
+            fn: list
+            type: integer
 
       - name: ardac_follow_up
         parent_props:
