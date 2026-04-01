@@ -1870,7 +1870,9 @@ etl:
           - name: liver_score_date
           - name: liver_transplant
           - name: tlfb_drinking_days
+            type: integer
           - name: tlfb_number_drinks
+            type: integer
           - name: varices
           - name: varices_diagnosis_date
           - name: weight
