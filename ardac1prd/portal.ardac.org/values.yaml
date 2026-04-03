@@ -376,6 +376,13 @@ portal:
         "name": "Profile",
         "color": "#A2A2A2",
         "tooltip": ""
+        },
+        {
+        "icon": "anagine",
+        "link": "/anagine",
+        "name": "Anagine",
+        "color": "#A2A2A2",
+        "tooltip": "AI-powered data analysis"
         }
         ]
         },
