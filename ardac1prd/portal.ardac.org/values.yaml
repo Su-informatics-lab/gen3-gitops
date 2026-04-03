@@ -1645,6 +1645,10 @@ revproxy:
   image:
     repository: quay.io/cdis/nginx
     tag: "2026.03"
+  extraServices:
+    - name: "anagine"
+      path: /anagine
+      serviceName: anagine-dev
 
 sheepdog:
   enabled: true
