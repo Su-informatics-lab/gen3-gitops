@@ -733,7 +733,7 @@ portal:
                     "child_pugh_score",
                     "lille_score",
                     "maddreys_score",
-                    "meld_score",
+                    "meld_score"
                   ]
                 },
                 {
