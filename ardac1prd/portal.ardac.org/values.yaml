@@ -249,7 +249,7 @@ portal:
   replicaCount: 2
   image:
     repository: bearbbhao/ardac-portal
-    tag: "1_1_12"
+    tag: "1_1_13"
   gitops:
     json: |
       {
@@ -514,9 +514,7 @@ portal:
                   "fields": [
                     "drinking_frequency",
                     "drinks_per_day",
-                    "frequency_of_heavy_drinking",
-                    "tlfb_drinking_days",
-                    "tlfb_number_drinks"
+                    "frequency_of_heavy_drinking"
                   ]
                 },
                 {
@@ -714,14 +712,6 @@ portal:
               "infection_screen_done": {
                 "chartType": "pie",
                 "title": "Infection Screen Done"
-              },
-              "tlfb_drinking_days": {
-                "chartType": "bar",
-                "title": "TLFB Drinking Days"
-              },
-              "tlfb_number_drinks": {
-                "chartType": "bar",
-                "title": "TLFB Number of Drinks"
               }
             },
             "filters": {
@@ -744,8 +734,6 @@ portal:
                     "lille_score",
                     "maddreys_score",
                     "meld_score",
-                    "tlfb_drinking_days",
-                    "tlfb_number_drinks"
                   ]
                 },
                 {
