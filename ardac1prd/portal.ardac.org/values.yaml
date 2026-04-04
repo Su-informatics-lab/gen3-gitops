@@ -99,7 +99,7 @@ grafana:
   enabled: false
 
 guppy:
-  enabled: true
+  enabled: false
   indices:
     - index: ardac_case
       type: case
