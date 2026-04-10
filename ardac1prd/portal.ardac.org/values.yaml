@@ -207,7 +207,8 @@ indexd:
   defaultPrefix: "dg.XXXX/"
   externalSecrets:
     dbcreds: "ardac1prd-default-indexd-creds"
-    createK8sServiceCredsSecret: true
+    createK8sServiceCredsSecret: false
+    serviceCreds: "ardac1prd-default-indexd-service-creds"
 
 manifestservice:
   enabled: true
