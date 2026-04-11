@@ -204,7 +204,7 @@ indexd:
   image:
     repository: quay.io/cdis/indexd
     tag: "2026.03"
-  defaultPrefix: "dg.XXXX/"
+  defaultPrefix: "dg.ARDC/"
   externalSecrets:
     dbcreds: "ardac1prd-default-indexd-creds"
     createK8sServiceCredsSecret: false
