@@ -1678,6 +1678,7 @@ ssjdispatcher:
       eks.amazonaws.com/role-arn: "arn:aws:iam::742378880825:role/gen3_service/ardac1prd-default-ssjdispatcher-job-sa"
   externalSecrets:
     credsFile: "ardac1prd-default-ssjdispatcher-creds"
+  indexing: "quay.io/cdis/indexs3client:2026.03"
 
 sower:
   enabled: false
