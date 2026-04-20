@@ -1666,7 +1666,18 @@ sheepdog:
     dbcreds: "ardac1prd-default-sheepdog-creds"
 
 ssjdispatcher:
-  enabled: false
+  enabled: true
+  image:
+    repository: quay.io/cdis/ssjdispatcher
+    tag: "2026.03"
+  serviceAccount:
+    annotations:
+      eks.amazonaws.com/role-arn: "arn:aws:iam::742378880825:role/gen3_service/ardac1prd-default-ssjdispatcher-sa"
+  jobServiceAccount:
+    annotations:
+      eks.amazonaws.com/role-arn: "arn:aws:iam::742378880825:role/gen3_service/ardac1prd-default-ssjdispatcher-job-sa"
+  externalSecrets:
+    credsFile: "ardac1prd-default-ssjdispatcher-creds"
 
 sower:
   enabled: false
