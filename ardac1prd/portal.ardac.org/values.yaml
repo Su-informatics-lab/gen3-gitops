@@ -245,7 +245,7 @@ portal:
   replicaCount: 2
   image:
     repository: bearbbhao/ardac-portal
-    tag: "1_1_13"
+    tag: "1_2_2"
   gitops:
     json: |
       {
@@ -1371,7 +1371,8 @@ portal:
         "featureFlags": {
           "explorerFilterValuesToHide": [
             "no data"
-          ]
+          ],
+          explorerHideEmptyFilterSection: true
         },
         "useArboristUI": true,
         "showArboristAuthzOnProfile": true,
