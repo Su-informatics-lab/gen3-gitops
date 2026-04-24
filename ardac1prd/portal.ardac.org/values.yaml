@@ -1372,7 +1372,7 @@ portal:
           "explorerFilterValuesToHide": [
             "no data"
           ],
-          explorerHideEmptyFilterSection: true
+          "explorerHideEmptyFilterSection": true
         },
         "useArboristUI": true,
         "showArboristAuthzOnProfile": true,
