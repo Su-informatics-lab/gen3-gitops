@@ -29,14 +29,27 @@ global:
   dispatcherJobNum: "10"
   frontendRoot: "portal"
   ddEnabled: false
+  pdb: true
 
 ambassador:
   enabled: true
+  replicaCount: 2
+  autoscaling:
+    enabled: false
+    minReplicas: 2
+    maxReplicas: 4
+    targetCPUUtilizationPercentage: 80
 
 arborist:
   enabled: true
+  replicaCount: 2
+  autoscaling:
+    enabled: false
+    minReplicas: 2
+    maxReplicas: 4
+    targetCPUUtilizationPercentage: 80
   image:
-    repository: "quay.io/cdis/arborist"
+    repository: quay.io/cdis/arborist
     tag: "2026.03"
   externalSecrets:
     dbcreds: "ardac1dmo-default-arborist-creds"
@@ -46,8 +59,14 @@ argo-wrapper:
 
 audit:
   enabled: true
+  replicaCount: 2
+  autoscaling:
+    enabled: false
+    minReplicas: 2
+    maxReplicas: 4
+    targetCPUUtilizationPercentage: 80
   image:
-    repository: "quay.io/cdis/audit-service"
+    repository: quay.io/cdis/audit-service
     tag: "2026.03"
   serviceAccount:
     annotations:
@@ -58,8 +77,14 @@ audit:
 
 aws-es-proxy:
   enabled: true
+  replicaCount: 2
+  autoscaling:
+    enabled: false
+    minReplicas: 2
+    maxReplicas: 4
+    targetCPUUtilizationPercentage: 80
   image:
-    repository: "quay.io/cdis/aws-es-proxy"
+    repository: quay.io/cdis/aws-es-proxy
     tag: "master"
   esEndpoint: "vpc-ardac1dmo-gen3-metadata-r5fevwf45ert54xbwhb3omlvsm.us-east-1.es.amazonaws.com"
   externalSecrets:
@@ -78,8 +103,14 @@ dicom-viewer:
 
 fence:
   enabled: true
+  replicaCount: 2
+  autoscaling:
+    enabled: false
+    minReplicas: 2
+    maxReplicas: 4
+    targetCPUUtilizationPercentage: 80
   image:
-    repository: "quay.io/cdis/fence"
+    repository: quay.io/cdis/fence
     tag: "2026.03"
   serviceAccount:
     annotations:
@@ -115,12 +146,18 @@ guppy:
 
 hatchery:
   enabled: true
+  replicaCount: 2
+  autoscaling:
+    enabled: false
+    minReplicas: 2
+    maxReplicas: 4
+    targetCPUUtilizationPercentage: 80
   image:
-    repository: "quay.io/cdis/hatchery"
+    repository: quay.io/cdis/hatchery
     tag: "2026.03"
   fence:
     image:
-      repository: "quay.io/cdis/fence"
+      repository: quay.io/cdis/fence
       tag: "2026.03"
 
   hatchery:
@@ -175,8 +212,14 @@ hatchery:
 
 indexd:
   enabled: true
+  replicaCount: 2
+  autoscaling:
+    enabled: false
+    minReplicas: 2
+    maxReplicas: 4
+    targetCPUUtilizationPercentage: 80
   image:
-    repository: "quay.io/cdis/indexd"
+    repository: quay.io/cdis/indexd
     tag: "2026.03"
   defaultPrefix: "dg.XXXX/"
   externalSecrets:
@@ -186,8 +229,14 @@ indexd:
 
 manifestservice:
   enabled: true
+  replicaCount: 2
+  autoscaling:
+    enabled: false
+    minReplicas: 2
+    maxReplicas: 4
+    targetCPUUtilizationPercentage: 80
   image:
-    repository: "quay.io/cdis/manifestservice"
+    repository: quay.io/cdis/manifestservice
     tag: "2026.03"
   serviceAccount:
     annotations:
@@ -197,14 +246,26 @@ manifestservice:
 
 metadata:
   enabled: true
+  replicaCount: 2
+  autoscaling:
+    enabled: false
+    minReplicas: 2
+    maxReplicas: 4
+    targetCPUUtilizationPercentage: 80
   externalSecrets:
     dbcreds: "ardac1dmo-default-metadata-creds"
     createK8sMetadataSecret: true
 
 peregrine:
   enabled: true
+  replicaCount: 2
+  autoscaling:
+    enabled: false
+    minReplicas: 2
+    maxReplicas: 4
+    targetCPUUtilizationPercentage: 80
   image:
-    repository: "quay.io/cdis/peregrine"
+    repository: quay.io/cdis/peregrine
     tag: "2026.03"
   externalSecrets:
     dbcreds: "ardac1dmo-default-peregrine-creds"
@@ -214,6 +275,12 @@ pidgin:
 
 portal:
   enabled: true
+  replicaCount: 2
+  autoscaling:
+    enabled: false
+    minReplicas: 2
+    maxReplicas: 4
+    targetCPUUtilizationPercentage: 80
   image:
     repository: leftsweety/ardac-portal
     tag: "1_11_23"
@@ -1248,16 +1315,27 @@ requestor:
 
 revproxy:
   enabled: true
+  replicaCount: 2
+  autoscaling:
+    enabled: false
+    minReplicas: 2
+    maxReplicas: 4
+    targetCPUUtilizationPercentage: 80
   image:
-    repository: "quay.io/cdis/nginx"
+    repository: quay.io/cdis/nginx
     tag: "2026.03"
 
 sheepdog:
   enabled: true
   image:
-    repository: "quay.io/cdis/sheepdog"
+    repository: quay.io/cdis/sheepdog
     tag: "2026.03"
   replicaCount: 5
+  autoscaling:
+    enabled: false
+    minReplicas: 2
+    maxReplicas: 4
+    targetCPUUtilizationPercentage: 80
   externalSecrets:
     dbcreds: "ardac1dmo-default-sheepdog-creds"
 
@@ -1269,8 +1347,14 @@ sower:
 
 wts:
   enabled: true
+  replicaCount: 2
+  autoscaling:
+    enabled: false
+    minReplicas: 2
+    maxReplicas: 4
+    targetCPUUtilizationPercentage: 80
   image:
-    repository: "quay.io/cdis/workspace-token-service"
+    repository: quay.io/cdis/workspace-token-service
     tag: "2026.03"
   externalSecrets:
     dbcreds: "ardac1dmo-default-wts-creds"
