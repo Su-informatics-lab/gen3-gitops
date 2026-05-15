@@ -20,7 +20,7 @@ global:
   environment: "ardac1prd"
   hostname: "new.portal.ardac.org"
   revproxyArn: "arn:aws:acm:us-east-1:742378880825:certificate/a95a18e1-30f3-4608-8b87-ab634966b944"
-  dictionaryUrl: "https://dictionary.ardac.org/2.2.3/schema.json"
+  dictionaryUrl: "https://dictionary.ardac.org/2.4.0/schema.json"
   portalApp: gitops
   publicDataSets: false
   tierAccessLevel: "private"
@@ -204,10 +204,11 @@ indexd:
   image:
     repository: quay.io/cdis/indexd
     tag: "2026.03"
-  defaultPrefix: "dg.XXXX/"
+  defaultPrefix: "dg.ARDC/"
   externalSecrets:
     dbcreds: "ardac1prd-default-indexd-creds"
-    createK8sServiceCredsSecret: true
+    createK8sServiceCredsSecret: false
+    serviceCreds: "ardac1prd-default-indexd-service-creds"
 
 manifestservice:
   enabled: true
@@ -1666,7 +1667,19 @@ sheepdog:
     dbcreds: "ardac1prd-default-sheepdog-creds"
 
 ssjdispatcher:
-  enabled: false
+  enabled: true
+  image:
+    repository: quay.io/cdis/ssjdispatcher
+    tag: "2026.03"
+  serviceAccount:
+    annotations:
+      eks.amazonaws.com/role-arn: "arn:aws:iam::742378880825:role/gen3_service/ardac1prd-default-ssjdispatcher-sa"
+  jobServiceAccount:
+    annotations:
+      eks.amazonaws.com/role-arn: "arn:aws:iam::742378880825:role/gen3_service/ardac1prd-default-ssjdispatcher-job-sa"
+  externalSecrets:
+    credsFile: "ardac1prd-default-ssjdispatcher-creds"
+  indexing: "quay.io/cdis/indexs3client:2026.03"
 
 sower:
   enabled: false
