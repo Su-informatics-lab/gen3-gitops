@@ -246,7 +246,7 @@ portal:
   replicaCount: 2
   image:
     repository: bearbbhao/ardac-portal
-    tag: "1_3_1"
+    tag: "1_3_2"
   gitops:
     json: |
       {
@@ -379,7 +379,8 @@ portal:
         "link": "/anagine",
         "name": "Anagine",
         "color": "#A2A2A2",
-        "tooltip": "AI-powered data analysis"
+        "tooltip": "Developer-only: For testing and internal use",
+        "disabled": true
         }
         ]
         },
