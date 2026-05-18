@@ -1,4 +1,6 @@
-# No image override — use the chart default (cr.fluentbit.io/fluent/fluent-bit:5.0.5)
+image:
+  repository: fluent/fluent-bit
+  tag: "5.0.5"
 
 env:
   - name: AWS_REGION
