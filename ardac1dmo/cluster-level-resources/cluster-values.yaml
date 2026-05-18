@@ -33,7 +33,7 @@ external-secrets:
   enabled: true
 
 fluentd:
-  enabled: true
+  enabled: false
   configuration:
     enabled: false
 

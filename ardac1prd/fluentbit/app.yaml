@@ -14,7 +14,7 @@ spec:
         valueFiles:
           - $values/ardac1prd/fluentbit/values.yaml
     - repoURL: 'https://github.com/Su-informatics-lab/gen3-gitops.git'
-      targetRevision: feature/fluentbit-migration
+      targetRevision: main
       ref: values
   destination:
     server: "https://kubernetes.default.svc"
