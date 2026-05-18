@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fluent-bit
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - chart: fluent-bit
+      repoURL: https://fluent.github.io/helm-charts
+      targetRevision: "0.57.5"
+      helm:
+        releaseName: fluent-bit
+        valueFiles:
+          - $values/ardac1prd/fluentbit/values.yaml
+    - repoURL: 'https://github.com/Su-informatics-lab/gen3-gitops.git'
+      targetRevision: main
+      ref: values
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: kube-system
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=false
+    automated:
+      selfHeal: true
