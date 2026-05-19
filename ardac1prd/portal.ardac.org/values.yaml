@@ -59,6 +59,13 @@ audit:
   externalSecrets:
     dbcreds: "ardac1prd-default-audit-creds"
     createK8sAuditSecret: true
+  server:
+    pull_from_queue: true
+    type: aws_sqs
+    sqs:
+      region: "us-east-1"
+      url: "https://sqs.us-east-1.amazonaws.com/742378880825/audit"
+    pull_frequency_seconds: 300
 
 aws-es-proxy:
   enabled: true
