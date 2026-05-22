@@ -30,6 +30,12 @@ variable "log_group_name" {
   type        = string
 }
 
+variable "log_group_retention_days" {
+  description = "Number of days to retain CloudWatch logs (0 = never expire)"
+  type        = number
+  default     = 90
+}
+
 variable "fluentbit_namespace" {
   description = "Kubernetes namespace where the Fluent Bit service account lives"
   type        = string

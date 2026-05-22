@@ -7,6 +7,10 @@
 #   terraform init \
 #     -backend-config="bucket=ardac-portal-terraform-state-705452667" \
 #     -backend-config="key=ardac1prd/fluentbit-opensearch/terraform.tfstate"
+#
+#   # If the CloudWatch log group already exists, import it before applying:
+#   terraform import aws_cloudwatch_log_group.fluentbit <log_group_name>
+#
 #   terraform apply
 #
 # For future environments substitute bucket and key accordingly, e.g.:
@@ -24,6 +28,7 @@ prefix                 = "ardac1prd"
 cluster_name           = "ardac1prd"         # EKS cluster name
 opensearch_domain_name = "ardac1prd-gen3-metadata"  # Domain name only, not the full endpoint
 log_group_name         = "ardac1prd"         # CloudWatch log group Fluent Bit writes to
+# log_group_retention_days = 90             # Days to retain logs; 0 = never expire (default: 90)
 
 # Leave these at defaults unless the Helm chart values were changed
 # fluentbit_namespace       = "kube-system"

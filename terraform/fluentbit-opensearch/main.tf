@@ -20,6 +20,25 @@ data "aws_iam_openid_connect_provider" "this" {
 }
 
 # ==============================================================================
+# CLOUDWATCH LOG GROUP
+# ==============================================================================
+
+resource "aws_cloudwatch_log_group" "fluentbit" {
+  name              = var.log_group_name
+  retention_in_days = var.log_group_retention_days
+
+  tags = {
+    Name        = var.log_group_name
+    Environment = var.prefix
+    Terraform   = "true"
+  }
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+# ==============================================================================
 # IAM POLICIES
 # ==============================================================================
 
