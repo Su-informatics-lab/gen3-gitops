@@ -5,6 +5,8 @@ env:
     value: "us-east-1"
   - name: LOG_GROUP_NAME
     value: "ardac1prd"
+  - name: OPENSEARCH_HOST
+    value: "vpc-ardac1prd-gen3-metadata-34ztrt3iey3wvgd36nrpf5gk5m.us-east-1.es.amazonaws.com"
 
 # Lua script to compute CloudWatch stream name as "namespace.pod-name"
 luaScripts:
@@ -74,6 +76,33 @@ config:
         script  /fluent-bit/scripts/stream_name.lua
         call    set_stream_name
 
+    # Fork anagine namespace logs into a separate tag for OpenSearch routing.
+    # Keep true preserves the original kube.* record so CloudWatch output is unaffected.
+    [FILTER]
+        Name                  rewrite_tag
+        Match                 kube.*
+        Rule                  $kubernetes['namespace_name'] ^ardac-anagine$ anagine.raw true
+        Emitter_Name          anagine_reemit
+        Emitter_Storage.type  filesystem
+        Emitter_Mem_Buf_Limit 50M
+
+    # Narrow to INFO-level POST requests with an authenticated user (email).
+    # RE2 word-boundary workaround: assert non-alphanumeric chars around INFO.
+    [FILTER]
+        Name    grep
+        Match   anagine.raw
+        Regex   log (^|[^[:alnum:]_])INFO([^[:alnum:]_]|$)
+
+    [FILTER]
+        Name    grep
+        Match   anagine.raw
+        Regex   log (user=[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+|"user":\s*"[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+")
+
+    [FILTER]
+        Name    grep
+        Match   anagine.raw
+        Regex   log (method=POST|"method":\s*"POST")
+
   outputs: |
     [OUTPUT]
         Name                 cloudwatch_logs
@@ -85,6 +114,25 @@ config:
         auto_create_group    true
         log_key              log
 
+    [OUTPUT]
+        Name               opensearch
+        Match              anagine.raw
+        Host               ${OPENSEARCH_HOST}
+        Port               443
+        Index              anagine-logs
+        Suppress_Type_Name On
+        AWS_Auth           On
+        AWS_Region         ${AWS_REGION}
+        AWS_Service        es
+        tls                On
+        tls.verify         On
+        Generate_ID        On
+        Retry_Limit        3
+
 serviceAccount:
   create: true
-  # CloudWatch access via EC2 node IAM role (no IRSA annotation needed)
+  annotations:
+    # Requires IAM role: arn:aws:iam::742378880825:role/gen3-service/ardac1prd-fluentbit-sa
+    # Role needs: CloudWatch Logs (logs:CreateLogGroup, logs:CreateLogStream, logs:PutLogEvents)
+    #             OpenSearch write access (es:ESHttp*) on the ardac1prd domain
+    eks.amazonaws.com/role-arn: "arn:aws:iam::742378880825:role/gen3-service/ardac1prd-fluentbit-sa"
