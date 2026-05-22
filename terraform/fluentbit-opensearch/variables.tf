@@ -1,3 +1,15 @@
+variable "aws_region" {
+  description = "AWS region"
+  type        = string
+  default     = "us-east-1"
+}
+
+variable "aws_profile" {
+  description = "AWS CLI profile to use for authentication. Leave empty to use the default credential chain (e.g. IAM role, environment variables)."
+  type        = string
+  default     = ""
+}
+
 variable "prefix" {
   description = "Environment name prefix used to name all resources (e.g. ardac1prd)"
   type        = string
