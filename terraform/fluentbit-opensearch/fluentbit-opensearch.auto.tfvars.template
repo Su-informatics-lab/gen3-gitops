@@ -1,0 +1,19 @@
+# Rename this file to fluentbit-opensearch.auto.tfvars and fill in the values
+# for your environment before running terraform apply.
+#
+# Prerequisites:
+#   1. The EKS cluster must have an IAM OIDC provider associated:
+#      eksctl utils associate-iam-oidc-provider --cluster <cluster_name> --approve
+#   2. After apply, map the output role_arn in OpenSearch Fine-Grained Access
+#      Control to a role with write permissions on the anagine-logs index.
+#      See the PR description for step-by-step instructions.
+
+# ardac1prd example values
+prefix                 = "ardac1prd"
+cluster_name           = "ardac1prd"         # EKS cluster name
+opensearch_domain_name = "ardac1prd-gen3-metadata"  # Domain name only, not the full endpoint
+log_group_name         = "ardac1prd"         # CloudWatch log group Fluent Bit writes to
+
+# Leave these at defaults unless the Helm chart values were changed
+# fluentbit_namespace       = "kube-system"
+# fluentbit_service_account = "fluent-bit"
