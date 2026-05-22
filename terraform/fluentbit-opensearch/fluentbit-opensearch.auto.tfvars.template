@@ -4,11 +4,14 @@
 # Usage:
 #   cp fluentbit-opensearch.auto.tfvars.template fluentbit-opensearch.auto.tfvars
 #   # edit values below as needed
-#   terraform init -backend-config="key=ardac1prd/fluentbit-opensearch/terraform.tfstate"
+#   terraform init \
+#     -backend-config="bucket=ardac-portal-terraform-state-705452667" \
+#     -backend-config="key=ardac1prd/fluentbit-opensearch/terraform.tfstate"
 #   terraform apply
 #
-# For future environments change the key prefix in the init command, e.g.:
-#   terraform init -backend-config="key=ardac1dmo/fluentbit-opensearch/terraform.tfstate"
+# For future environments substitute bucket and key accordingly, e.g.:
+#   -backend-config="bucket=<other-bucket>"
+#   -backend-config="key=ardac1dmo/fluentbit-opensearch/terraform.tfstate"
 #
 # Prerequisites:
 #   1. The EKS cluster must have an IAM OIDC provider associated:
