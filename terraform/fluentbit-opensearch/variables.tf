@@ -33,7 +33,7 @@ variable "log_group_name" {
 variable "log_group_retention_days" {
   description = "Number of days to retain CloudWatch logs (0 = never expire)"
   type        = number
-  default     = 90
+  default     = 3653
 }
 
 variable "fluentbit_namespace" {
