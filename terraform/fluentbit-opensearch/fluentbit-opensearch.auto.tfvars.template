@@ -1,12 +1,20 @@
 # Rename this file to fluentbit-opensearch.auto.tfvars and fill in the values
 # for your environment before running terraform apply.
 #
+# Usage:
+#   cp fluentbit-opensearch.auto.tfvars.template fluentbit-opensearch.auto.tfvars
+#   # edit values below as needed
+#   terraform init -backend-config="key=ardac1prd/fluentbit-opensearch/terraform.tfstate"
+#   terraform apply
+#
+# For future environments change the key prefix in the init command, e.g.:
+#   terraform init -backend-config="key=ardac1dmo/fluentbit-opensearch/terraform.tfstate"
+#
 # Prerequisites:
 #   1. The EKS cluster must have an IAM OIDC provider associated:
 #      eksctl utils associate-iam-oidc-provider --cluster <cluster_name> --approve
 #   2. After apply, map the output role_arn in OpenSearch Fine-Grained Access
 #      Control to a role with write permissions on the anagine-logs index.
-#      See the PR description for step-by-step instructions.
 
 # ardac1prd example values
 prefix                 = "ardac1prd"
