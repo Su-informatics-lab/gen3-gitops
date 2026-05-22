@@ -41,3 +41,9 @@ variable "fluentbit_service_account" {
   type        = string
   default     = "fluent-bit"
 }
+
+variable "opensearch_existing_principals" {
+  description = "IAM principal ARNs that already have access to the OpenSearch domain (preserved alongside the Fluent Bit role in the domain access policy)."
+  type        = list(string)
+  default     = []
+}

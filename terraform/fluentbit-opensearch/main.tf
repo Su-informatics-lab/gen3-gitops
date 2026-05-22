@@ -106,3 +106,31 @@ module "fluentbit_irsa_role" {
     Terraform   = "true"
   }
 }
+
+# ==============================================================================
+# OPENSEARCH DOMAIN ACCESS POLICY
+# ==============================================================================
+
+# Merges the Fluent Bit IRSA role with any existing principals so that
+# applying this module does not revoke access for other consumers.
+data "aws_iam_policy_document" "opensearch_access" {
+  statement {
+    effect = "Allow"
+
+    principals {
+      type = "AWS"
+      identifiers = concat(
+        var.opensearch_existing_principals,
+        [module.fluentbit_irsa_role.iam_role_arn],
+      )
+    }
+
+    actions   = ["es:*"]
+    resources = ["*"]
+  }
+}
+
+resource "aws_elasticsearch_domain_policy" "fluentbit_access" {
+  domain_name     = var.opensearch_domain_name
+  access_policies = data.aws_iam_policy_document.opensearch_access.json
+}

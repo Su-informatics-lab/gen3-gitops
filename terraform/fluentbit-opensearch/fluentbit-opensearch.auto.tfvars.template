@@ -16,8 +16,8 @@
 # Prerequisites:
 #   1. The EKS cluster must have an IAM OIDC provider associated:
 #      eksctl utils associate-iam-oidc-provider --cluster <cluster_name> --approve
-#   2. After apply, map the output role_arn in OpenSearch Fine-Grained Access
-#      Control to a role with write permissions on the anagine-logs index.
+#   2. List all existing domain access policy principals in opensearch_existing_principals
+#      so that this module does not revoke their access when it takes ownership of the policy.
 
 # ardac1prd example values
 prefix                 = "ardac1prd"
@@ -28,3 +28,10 @@ log_group_name         = "ardac1prd"         # CloudWatch log group Fluent Bit w
 # Leave these at defaults unless the Helm chart values were changed
 # fluentbit_namespace       = "kube-system"
 # fluentbit_service_account = "fluent-bit"
+
+# Existing IAM principals that must retain access to the OpenSearch domain.
+# This module manages the full domain access policy; omitting these will revoke their access.
+opensearch_existing_principals = [
+  "arn:aws:iam::742378880825:user/ardac1prd_es_user",
+  "arn:aws:iam::742378880825:role/gen3-service/ardac1prd-esproxy-sa",
+]
