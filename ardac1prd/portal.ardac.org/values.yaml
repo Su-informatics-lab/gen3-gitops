@@ -253,10 +253,11 @@ portal:
   replicaCount: 2
   image:
     repository: bearbbhao/ardac-portal
-    tag: "1_3_2"
+    tag: "1_3_3"
   gitops:
     json: |
       {
+        "gaTrackingId": "G-2QBC4951QY",
         "components": {
         "appName": "The AlcHepNet Research Data Commons Portal",
         "graphql": {
