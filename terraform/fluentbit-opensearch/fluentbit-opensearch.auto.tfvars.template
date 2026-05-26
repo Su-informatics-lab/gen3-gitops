@@ -1,0 +1,42 @@
+# Rename this file to fluentbit-opensearch.auto.tfvars and fill in the values
+# for your environment before running terraform apply.
+#
+# Usage:
+#   cp fluentbit-opensearch.auto.tfvars.template fluentbit-opensearch.auto.tfvars
+#   # edit values below as needed
+#   terraform init \
+#     -backend-config="bucket=ardac-portal-terraform-state-705452667" \
+#     -backend-config="key=ardac1prd/fluentbit-opensearch/terraform.tfstate"
+#
+#   # If the CloudWatch log group already exists, import it before applying:
+#   terraform import aws_cloudwatch_log_group.fluentbit <log_group_name>
+#
+#   terraform apply
+#
+# For future environments substitute bucket and key accordingly, e.g.:
+#   -backend-config="bucket=<other-bucket>"
+#   -backend-config="key=ardac1dmo/fluentbit-opensearch/terraform.tfstate"
+#
+# Prerequisites:
+#   1. The EKS cluster must have an IAM OIDC provider associated:
+#      eksctl utils associate-iam-oidc-provider --cluster <cluster_name> --approve
+#   2. List all existing domain access policy principals in opensearch_existing_principals
+#      so that this module does not revoke their access when it takes ownership of the policy.
+
+# ardac1prd example values
+prefix                 = "ardac1prd"
+cluster_name           = "ardac1prd"         # EKS cluster name
+opensearch_domain_name = "ardac1prd-gen3-metadata"  # Domain name only, not the full endpoint
+log_group_name         = "ardac1prd"         # CloudWatch log group Fluent Bit writes to
+# log_group_retention_days = 90             # Days to retain logs; 0 = never expire (default: 90)
+
+# Leave these at defaults unless the Helm chart values were changed
+# fluentbit_namespace       = "kube-system"
+# fluentbit_service_account = "fluent-bit"
+
+# Existing IAM principals that must retain access to the OpenSearch domain.
+# This module manages the full domain access policy; omitting these will revoke their access.
+opensearch_existing_principals = [
+  "arn:aws:iam::742378880825:user/ardac1prd_es_user",
+  "arn:aws:iam::742378880825:role/gen3-service/ardac1prd-esproxy-sa",
+]
