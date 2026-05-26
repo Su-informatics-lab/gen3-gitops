@@ -83,7 +83,7 @@ config:
         Match                 kube.*
         Rule                  $kubernetes['namespace_name'] ^ardac-anagine$ anagine.raw true
         Emitter_Name          anagine_reemit
-        Emitter_Storage.type  filesystem
+        Emitter_Storage.type  memory
         Emitter_Mem_Buf_Limit 50M
 
     # Narrow to INFO-level POST requests with an authenticated user (email).
