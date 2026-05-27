@@ -15,7 +15,7 @@ global:
   externalSecrets:
     deploy: true
   postgres:
-    dbCreate: true
+    dbCreate: false
     externalSecret: "ardac1prd-aurora-master-password"
   environment: "ardac1prd"
   hostname: "new.portal.ardac.org"
