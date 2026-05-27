@@ -19,6 +19,12 @@ spec:
   destination:
     server: "https://kubernetes.default.svc"
     namespace: default
+  ignoreDifferences:
+    - group: batch
+      kind: Job
+      jsonPointers:
+        - /spec/selector
+        - /spec/template/metadata/labels
   syncPolicy:
     syncOptions:
     - CreateNamespace=true
