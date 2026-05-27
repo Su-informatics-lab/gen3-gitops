@@ -22,9 +22,9 @@ spec:
   ignoreDifferences:
     - group: batch
       kind: Job
+      name: indexd-userdb
       jsonPointers:
-        - /spec/selector
-        - /spec/template/metadata/labels
+        - /spec
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
