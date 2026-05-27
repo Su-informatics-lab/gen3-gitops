@@ -27,8 +27,8 @@ spec:
         - /spec/template/metadata/labels
   syncPolicy:
     syncOptions:
-    - CreateNamespace=true
-    - Replace=true
-    - RespectIgnoreDifferences=true
+      - CreateNamespace=true
+      - Replace=true
+      - RespectIgnoreDifferences=true
     automated:
       selfHeal: true
