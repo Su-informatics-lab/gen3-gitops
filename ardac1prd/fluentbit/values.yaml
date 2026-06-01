@@ -33,10 +33,24 @@ config:
         Log_Level     info
         Daemon        Off
         Parsers_File  /fluent-bit/etc/parsers.conf
+        Parsers_File  /fluent-bit/etc/conf/custom_parsers.conf
         HTTP_Server   On
         HTTP_Listen   0.0.0.0
         HTTP_Port     2020
         Health_Check  On
+
+  customParsers: |
+    [PARSER]
+        Name   anagine_usage_log
+        Format regex
+        Regex  ^\[[^\]]+\][[:space:]]+USAGE_LOG:[[:space:]]*(?<usage_json>\{.*\})$
+
+    [PARSER]
+        Name        anagine_usage_json
+        Format      json
+        Time_Key    @timestamp
+        Time_Format %Y-%m-%dT%H:%M:%S.%LZ
+        Time_Keep   On
 
   inputs: |
     [INPUT]
@@ -96,27 +110,28 @@ config:
         Emitter_Storage.type  memory
         Emitter_Mem_Buf_Limit 50M
 
-    # Narrow to INFO-level POST requests to /report/ with an authenticated user (email).
-    # RE2 word-boundary workaround: assert non-alphanumeric chars around INFO.
+    # Narrow OpenSearch routing to Anagine structured usage events.
     [FILTER]
         Name    grep
         Match   anagine.filtered
-        Regex   log (^|[^[:alnum:]_])INFO([^[:alnum:]_]|$)
+        Regex   log USAGE_LOG:
+
+    # Extract the JSON payload and parse it into top-level OpenSearch fields.
+    [FILTER]
+        Name          parser
+        Match         anagine.filtered
+        Key_Name      log
+        Parser        anagine_usage_log
+        Reserve_Data  On
+        Preserve_Key  On
 
     [FILTER]
-        Name    grep
-        Match   anagine.filtered
-        Regex   log (user=[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+|"user":\s*"[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+")
-
-    [FILTER]
-        Name    grep
-        Match   anagine.filtered
-        Regex   log (method=POST|"method":\s*"POST")
-
-    [FILTER]
-        Name    grep
-        Match   anagine.filtered
-        Regex   log url=/report/
+        Name          parser
+        Match         anagine.filtered
+        Key_Name      usage_json
+        Parser        anagine_usage_json
+        Reserve_Data  On
+        Preserve_Key  Off
 
   outputs: |
     [OUTPUT]
