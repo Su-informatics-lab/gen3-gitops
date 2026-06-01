@@ -18,7 +18,7 @@ global:
     dbCreate: false
     externalSecret: "ardac1prd-aurora-master-password"
   environment: "ardac1prd"
-  hostname: "new.portal.ardac.org"
+  hostname: "portal.ardac.org"
   revproxyArn: "arn:aws:acm:us-east-1:742378880825:certificate/a95a18e1-30f3-4608-8b87-ab634966b944"
   dictionaryUrl: "https://dictionary.ardac.org/2.4.0/schema.json"
   portalApp: gitops
