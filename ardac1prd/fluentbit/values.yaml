@@ -76,32 +76,47 @@ config:
         script  /fluent-bit/scripts/stream_name.lua
         call    set_stream_name
 
-    # Fork anagine namespace logs into a separate tag for OpenSearch routing.
-    # Keep true preserves the original kube.* record so CloudWatch output is unaffected.
+    # Stage 1: Re-tag all anagine namespace logs as anagine.all for explicit CloudWatch routing.
+    # Keep false removes the original kube.* record to avoid re-emission loops.
     [FILTER]
         Name                  rewrite_tag
         Match                 kube.*
-        Rule                  $kubernetes['namespace_name'] ^ardac-anagine$ anagine.raw true
-        Emitter_Name          anagine_reemit
+        Rule                  $kubernetes['namespace_name'] ^ardac-anagine$ anagine.all false
+        Emitter_Name          anagine_all_reemit
         Emitter_Storage.type  memory
         Emitter_Mem_Buf_Limit 50M
 
-    # Narrow to INFO-level POST requests with an authenticated user (email).
+    # Stage 2: Fork anagine.all into anagine.filtered for OpenSearch routing.
+    # Keep true preserves anagine.all (sent to CloudWatch) while forking a copy to narrow further.
+    [FILTER]
+        Name                  rewrite_tag
+        Match                 anagine.all
+        Rule                  $kubernetes['namespace_name'] ^ardac-anagine$ anagine.filtered true
+        Emitter_Name          anagine_filtered_reemit
+        Emitter_Storage.type  memory
+        Emitter_Mem_Buf_Limit 50M
+
+    # Narrow to INFO-level POST requests to /report/ with an authenticated user (email).
     # RE2 word-boundary workaround: assert non-alphanumeric chars around INFO.
     [FILTER]
         Name    grep
-        Match   anagine.raw
+        Match   anagine.filtered
         Regex   log (^|[^[:alnum:]_])INFO([^[:alnum:]_]|$)
 
     [FILTER]
         Name    grep
-        Match   anagine.raw
+        Match   anagine.filtered
         Regex   log (user=[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+|"user":\s*"[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+")
 
     [FILTER]
         Name    grep
-        Match   anagine.raw
+        Match   anagine.filtered
         Regex   log (method=POST|"method":\s*"POST")
+
+    [FILTER]
+        Name    grep
+        Match   anagine.filtered
+        Regex   log url=/report/
 
   outputs: |
     [OUTPUT]
@@ -114,9 +129,20 @@ config:
         auto_create_group    true
         log_key              log
 
+    # Send all anagine records to CloudWatch (unfiltered).
+    [OUTPUT]
+        Name                 cloudwatch_logs
+        Match                anagine.all
+        region               ${AWS_REGION}
+        log_group_name       ${LOG_GROUP_NAME}
+        log_stream_name      fallback-stream
+        log_stream_template  $cw_stream
+        auto_create_group    true
+        log_key              log
+
     [OUTPUT]
         Name               opensearch
-        Match              anagine.raw
+        Match              anagine.filtered
         Host               ${OPENSEARCH_HOST}
         Port               443
         Index              anagine-logs
