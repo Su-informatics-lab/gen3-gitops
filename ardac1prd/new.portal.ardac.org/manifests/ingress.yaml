@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: new-portal-redirect
+  namespace: default
+  annotations:
+    alb.ingress.kubernetes.io/actions.redirect-to-portal: '{"Type":"redirect","RedirectConfig":{"Protocol":"HTTPS","Port":"443","Host":"portal.ardac.org","Path":"/#{path}","Query":"#{query}","StatusCode":"HTTP_302"}}'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:742378880825:certificate/a95a18e1-30f3-4608-8b87-ab634966b944
+    alb.ingress.kubernetes.io/group.name: ardac1prd
+    alb.ingress.kubernetes.io/group.order: "10"
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
+spec:
+  ingressClassName: alb
+  rules:
+    - host: new.portal.ardac.org
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: redirect-to-portal
+                port:
+                  name: use-annotation
