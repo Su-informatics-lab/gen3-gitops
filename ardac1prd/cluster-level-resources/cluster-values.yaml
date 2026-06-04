@@ -62,7 +62,7 @@ karpenter-crds:
   selectorTag: ardac1prd
   migration: true
   default:
-    consolidationPolicy: "WhenEmptyOrUnderutilized"
+    consolidationPolicy: "WhenEmpty"
     consolidateAfter: "10m"
     volumeSize: 30Gi
     requirements:
@@ -81,6 +81,12 @@ karpenter-crds:
           - c
           - m
           - t
+      - key: karpenter.k8s.aws/instance-size
+        operator: NotIn
+        values:
+          - nano
+          - micro
+          - small
   jupyter:
     consolidationPolicy: "WhenEmptyOrUnderutilized"
     consolidateAfter: "10m"
