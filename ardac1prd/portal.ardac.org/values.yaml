@@ -30,6 +30,13 @@ global:
   dispatcherJobNum: "10"
   frontendRoot: "portal"
   ddEnabled: false
+  pdb: true
+  minAvailable: 1
+  topologySpread:
+    enabled: true
+    topologyKey: kubernetes.io/hostname
+    maxSkew: 1
+    whenUnsatisfiable: DoNotSchedule
 
 ambassador:
   enabled: true
