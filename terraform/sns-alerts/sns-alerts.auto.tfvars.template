@@ -1,0 +1,38 @@
+# Rename this file to sns-alerts.auto.tfvars and fill in the values for your
+# environment before running terraform apply.
+#
+# Usage:
+#   cp sns-alerts.auto.tfvars.template sns-alerts.auto.tfvars
+#   # edit values below as needed
+#   terraform init \
+#     -backend-config="bucket=ardac-portal-terraform-state-705452667" \
+#     -backend-config="key=ardac1prd/sns-alerts/terraform.tfstate"
+#
+#   # Teams webhook values are ephemeral and must be supplied at runtime, not
+#   # committed to this file:
+#   terraform apply -var='teams_webhook_url=https://...'
+#
+# For future environments substitute bucket and key accordingly, e.g.:
+#   -backend-config="bucket=<other-bucket>"
+#   -backend-config="key=ardac1dmo/sns-alerts/terraform.tfstate"
+
+# ardac1prd example values
+prefix      = "ardac1prd"
+gen3_domain = "portal.ardac.org"
+
+# Health check defaults monitor https://portal.ardac.org/ on port 443.
+# health_check_path              = "/"
+# health_check_port              = 443
+# health_check_request_interval  = 30
+# health_check_failure_threshold = 3
+
+# Set to true to create SNS -> SQS -> Lambda delivery to Teams.
+enable_teams_webhook = true
+
+# Required when enable_teams_webhook is true. Pass this on the command line or
+# through TF_VAR_teams_webhook_url so Terraform can write the secret without
+# storing the webhook URL in state or plan files.
+# teams_webhook_url = "https://..."
+
+# Increment this when rotating the Teams webhook URL.
+# teams_webhook_secret_version = 1
