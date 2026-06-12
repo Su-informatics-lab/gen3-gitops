@@ -40,7 +40,7 @@ global:
 
 ambassador:
   enabled: true
-  replicaCount: 2
+  replicaCount: 3
 
 arborist:
   enabled: true
@@ -76,7 +76,7 @@ audit:
 
 aws-es-proxy:
   enabled: true
-  replicaCount: 2
+  replicaCount: 3
   image:
     repository: quay.io/cdis/aws-es-proxy
     tag: "master"
@@ -96,7 +96,7 @@ dicom-viewer:
 
 fence:
   enabled: true
-  replicaCount: 2
+  replicaCount: 3
   image:
     repository: quay.io/cdis/fence
     tag: "2026.03"
@@ -257,7 +257,7 @@ pidgin:
 
 portal:
   enabled: true
-  replicaCount: 2
+  replicaCount: 3
   image:
     repository: bearbbhao/ardac-portal
     tag: "1_3_4"
@@ -1664,7 +1664,7 @@ requestor:
 
 revproxy:
   enabled: true
-  replicaCount: 2
+  replicaCount: 3
   image:
     repository: quay.io/cdis/nginx
     tag: "2026.03"

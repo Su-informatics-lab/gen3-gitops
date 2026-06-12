@@ -2,6 +2,10 @@ cluster: "ardac1prd"
 
 accountNumber: "742378880825"
 
+configuration:
+  configurationRepo: https://github.com/Su-informatics-lab/gen3-gitops.git
+  configurationRevision: main
+
 alb-controller:
   enabled: true
   configuration:
@@ -51,6 +55,8 @@ grafana-alloy:
 karpenter:
   enabled: true
   targetRevision: "1.0.8"
+  configuration:
+    enabled: true
 
 karpenter-crds:
   amiSelectorName: "amazon-eks-node-al2023-x86_64-standard-1.34-*"
@@ -87,6 +93,7 @@ karpenter-crds:
           - nano
           - micro
           - small
+          - medium
   jupyter:
     consolidationPolicy: "WhenEmptyOrUnderutilized"
     consolidateAfter: "10m"
