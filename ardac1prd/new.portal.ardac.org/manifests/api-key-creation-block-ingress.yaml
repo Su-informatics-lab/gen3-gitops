@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-key-creation-block
+  namespace: default
+  annotations:
+    alb.ingress.kubernetes.io/actions.block-api-key-create: '{"type":"fixed-response","fixedResponseConfig":{"contentType":"application/json","statusCode":"403","messageBody":"{\"error\":\"API key creation is disabled for ARDaC. Contact ardac@iu.edu for programmatic access.\"}"}}'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:742378880825:certificate/a95a18e1-30f3-4608-8b87-ab634966b944
+    alb.ingress.kubernetes.io/conditions.block-api-key-create: '[{"field":"http-request-method","httpRequestMethodConfig":{"Values":["POST"]}}]'
+    alb.ingress.kubernetes.io/group.name: ardac1prd
+    alb.ingress.kubernetes.io/group.order: "-10"
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
+spec:
+  ingressClassName: alb
+  rules:
+    - host: portal.ardac.org
+      http:
+        paths:
+          - path: /user/credentials/cdis/
+            pathType: Exact
+            backend:
+              service:
+                name: block-api-key-create
+                port:
+                  name: use-annotation
+          - path: /user/credentials/cdis
+            pathType: Exact
+            backend:
+              service:
+                name: block-api-key-create
+                port:
+                  name: use-annotation
