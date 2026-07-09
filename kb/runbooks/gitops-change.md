@@ -33,8 +33,8 @@ Use this for repo changes that alter Argo CD applications, Helm values, raw Kube
 
 2. Create a dedicated worktree and branch.
 
-   ```bash
-   git worktree add C:\Users\alwalsh\.codex\worktrees\<worktree-name> -b codex/<branch-name>
+   ```powershell
+   git worktree add "$env:USERPROFILE\.codex\worktrees\WORKTREE_NAME" -b "codex/BRANCH_NAME"
    ```
 
 3. Identify the source of truth before editing.
