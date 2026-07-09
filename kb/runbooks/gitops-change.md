@@ -18,7 +18,7 @@ Use this for repo changes that alter Argo CD applications, Helm values, raw Kube
 
 - Work on a branch and worktree, not directly in the main checkout.
 - The preferred branch prefix is `codex/`.
-- The worktree belongs under `$CODEX_HOME/worktrees`. In this Windows environment, `$CODEX_HOME` may be unset; use `C:\Users\alwalsh\.codex` when needed.
+- The worktree belongs under `$CODEX_HOME/worktrees`. If `$CODEX_HOME` is unset, use `$env:USERPROFILE\.codex` (PowerShell).
 - This repo targets Windows 11 and PowerShell.
 
 ## Procedure
