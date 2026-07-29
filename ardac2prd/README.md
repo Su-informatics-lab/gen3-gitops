@@ -6,13 +6,12 @@ Gen3 hostname. The supplemental ingress in `load-balancer/` adds
 `portal.ardac.org` and `archive.portal.ardac.org` to the same cluster-local
 Application Load Balancer.
 
-Before bootstrapping Argo CD, replace these infrastructure placeholders with
-outputs from the `ardac2prd` Terraform deployment:
+Before bootstrapping Argo CD, confirm these infrastructure values match outputs from the `ardac2prd` Terraform deployment:
 
-- `REPLACE_WITH_ARDAC2PRD_EKS_CLUSTER_ENDPOINT`
-- `REPLACE_WITH_ARDAC2PRD_OPENSEARCH_ENDPOINT`
-- `REPLACE_WITH_ARDAC2PRD_USERS_BUCKET`
-- `REPLACE_WITH_ARDAC2PRD_AUDIT_SQS_URL`
+- EKS cluster endpoint (Karpenter `settings.clusterEndpoint`)
+- OpenSearch endpoint (Fluent Bit `OPENSEARCH_HOST` and `aws-es-proxy.esEndpoint`)
+- Users bucket (Fence `usersync.userYamlS3Path`)
+- Audit SQS URL (Audit `server.sqs.url`)
 
 The Audit and SSJ Dispatcher queues must be unique to `ardac2prd`. The current
 `gen3-terraform` implementation uses the account-global names `audit` and
