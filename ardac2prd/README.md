@@ -13,10 +13,7 @@ Before bootstrapping Argo CD, confirm these infrastructure values match outputs 
 - Users bucket (Fence `usersync.userYamlS3Path`)
 - Audit SQS URL (Audit `server.sqs.url`)
 
-The Audit and SSJ Dispatcher queues must be unique to `ardac2prd`. The current
-`gen3-terraform` implementation uses the account-global names `audit` and
-`ssjdispatcher`; do not bootstrap this deployment until the Terraform
-configuration provides environment-specific queues and secrets.
+Ensure the Audit and SSJ Dispatcher queues/secrets provisioned by Terraform match what this configuration references (for example, Audit `server.sqs.url` points at an `ardac2prd-*` queue). Do not bootstrap this deployment until the environment-specific queues and corresponding secrets exist.
 
 At production cutover, change `global.hostname` to `portal.ardac.org`, move
 `new.portal.ardac.org` into the supplemental alias ingress, and then update
