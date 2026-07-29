@@ -6,7 +6,7 @@ env:
   - name: LOG_GROUP_NAME
     value: "ardac2prd"
   - name: OPENSEARCH_HOST
-    value: "https://vpc-ardac2prd-gen3-metadata-v6otlbpfwnexigc7e6wstdwg3m.us-east-1.es.amazonaws.com"
+    value: "vpc-ardac2prd-gen3-metadata-v6otlbpfwnexigc7e6wstdwg3m.us-east-1.es.amazonaws.com"
 
 # Lua script to compute CloudWatch stream name as "namespace.pod-name"
 luaScripts:
