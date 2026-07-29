@@ -80,7 +80,7 @@ aws-es-proxy:
   image:
     repository: quay.io/cdis/aws-es-proxy
     tag: "master"
-  esEndpoint: "https://vpc-ardac2prd-gen3-metadata-v6otlbpfwnexigc7e6wstdwg3m.us-east-1.es.amazonaws.com"
+  esEndpoint: "vpc-ardac2prd-gen3-metadata-v6otlbpfwnexigc7e6wstdwg3m.us-east-1.es.amazonaws.com"
   externalSecrets:
     awsCreds: "ardac2prd-default-aws-es-proxy-creds"
 
