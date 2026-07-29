@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gen3-ardac2prd
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - path: helm/gen3
+      repoURL: https://github.com/uc-cdis/gen3-helm
+      targetRevision: master
+      helm:
+        releaseName: gen3
+        valueFiles:
+          - $values/ardac2prd/portal.ardac.org/values.yaml
+    - repoURL: 'https://github.com/Su-informatics-lab/gen3-gitops.git'
+      targetRevision: main
+      ref: values
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: default
+  ignoreDifferences:
+    - group: batch
+      kind: Job
+      name: indexd-userdb
+      jsonPointers:
+        - /spec
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - Replace=true
+      - RespectIgnoreDifferences=true
+    automated:
+      selfHeal: true

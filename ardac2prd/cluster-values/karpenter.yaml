@@ -1,0 +1,33 @@
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "8080"
+  prometheus.io/path: "/metrics"
+  prometheus.io/scheme: "http"
+
+dnsPolicy: Default
+
+webhook:
+  enabled: false
+
+serviceAccount:
+  name: karpenter
+  create: true
+  annotations:
+    eks.amazonaws.com/role-arn: "arn:aws:iam::742378880825:role/ardac2prd-karpenter-sa"
+
+settings:
+  clusterName: ardac2prd
+  clusterEndpoint: https://B258DE3FBF93BB2E51BD478E255B6A87.gr7.us-east-1.eks.amazonaws.com
+  interruptionQueue: ardac2prd-ardac2prd
+
+controller:
+  env:
+    - name: AWS_REGION
+      value: us-east-1
+  resources:
+    requests:
+      memory: 1Gi
+      cpu: 1
+    limits:
+      memory: 1Gi
+      cpu: 1

@@ -1,0 +1,179 @@
+# No image override — use the chart default (cr.fluentbit.io/fluent/fluent-bit:5.0.5)
+
+env:
+  - name: AWS_REGION
+    value: "us-east-1"
+  - name: LOG_GROUP_NAME
+    value: "ardac2prd"
+  - name: OPENSEARCH_HOST
+    value: "vpc-ardac2prd-gen3-metadata-v6otlbpfwnexigc7e6wstdwg3m.us-east-1.es.amazonaws.com"
+
+# Lua script to compute CloudWatch stream name as "namespace.pod-name"
+luaScripts:
+  stream_name.lua: |
+    function set_stream_name(tag, timestamp, record)
+        local ns = ""
+        local pod = ""
+        if record["kubernetes"] then
+            ns = record["kubernetes"]["namespace_name"] or ""
+            pod = record["kubernetes"]["pod_name"] or ""
+        end
+        if ns ~= "" and pod ~= "" then
+            record["cw_stream"] = ns .. "." .. pod
+        else
+            record["cw_stream"] = tag
+        end
+        return 1, timestamp, record
+    end
+
+config:
+  service: |
+    [SERVICE]
+        Flush         5
+        Log_Level     info
+        Daemon        Off
+        Parsers_File  /fluent-bit/etc/parsers.conf
+        Parsers_File  /fluent-bit/etc/conf/custom_parsers.conf
+        HTTP_Server   On
+        HTTP_Listen   0.0.0.0
+        HTTP_Port     2020
+        Health_Check  On
+
+  customParsers: |
+    [PARSER]
+        Name   anagine_usage_log
+        Format regex
+        Regex  ^\[[^\]]+\][[:space:]]+USAGE_LOG:[[:space:]]*(?<usage_json>\{.*\})$
+
+    [PARSER]
+        Name        anagine_usage_json
+        Format      json
+        Time_Key    @timestamp
+        Time_Format %Y-%m-%dT%H:%M:%S.%LZ
+        Time_Keep   On
+
+  inputs: |
+    [INPUT]
+        Name              tail
+        Path              /var/log/containers/*.log
+        multiline.parser  docker, cri
+        Tag               kube.*
+        DB                /var/log/flb_kube.db
+        Mem_Buf_Limit     50MB
+        Skip_Long_Lines   On
+
+  filters: |
+    [FILTER]
+        Name                kubernetes
+        Match               kube.*
+        Kube_URL            https://kubernetes.default.svc:443
+        Kube_CA_File        /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        Kube_Token_File     /var/run/secrets/kubernetes.io/serviceaccount/token
+        Merge_Log           On
+        Keep_Log            On
+        K8S-Logging.Parser  On
+        K8S-Logging.Exclude Off
+
+    [FILTER]
+        Name    grep
+        Match   kube.*
+        Exclude $kubernetes['namespace_name'] ^kube-system$
+
+    [FILTER]
+        Name    grep
+        Match   kube.*
+        Exclude $kubernetes['namespace_name'] ^logging$
+
+    [FILTER]
+        Name    lua
+        Match   kube.*
+        script  /fluent-bit/scripts/stream_name.lua
+        call    set_stream_name
+
+    # Stage 1: Re-tag all anagine namespace logs as anagine.all for explicit CloudWatch routing.
+    # Keep false removes the original kube.* record to avoid re-emission loops.
+    [FILTER]
+        Name                  rewrite_tag
+        Match                 kube.*
+        Rule                  $kubernetes['namespace_name'] ^ardac-anagine$ anagine.all false
+        Emitter_Name          anagine_all_reemit
+        Emitter_Storage.type  memory
+        Emitter_Mem_Buf_Limit 50M
+
+    # Stage 2: Fork anagine.all into anagine.filtered for OpenSearch routing.
+    # Keep true preserves anagine.all (sent to CloudWatch) while forking a copy to narrow further.
+    [FILTER]
+        Name                  rewrite_tag
+        Match                 anagine.all
+        Rule                  $kubernetes['namespace_name'] ^ardac-anagine$ anagine.filtered true
+        Emitter_Name          anagine_filtered_reemit
+        Emitter_Storage.type  memory
+        Emitter_Mem_Buf_Limit 50M
+
+    # Narrow OpenSearch routing to Anagine structured usage events.
+    [FILTER]
+        Name    grep
+        Match   anagine.filtered
+        Regex   log USAGE_LOG:
+
+    # Extract the JSON payload and parse it into top-level OpenSearch fields.
+    [FILTER]
+        Name          parser
+        Match         anagine.filtered
+        Key_Name      log
+        Parser        anagine_usage_log
+        Reserve_Data  On
+        Preserve_Key  On
+
+    [FILTER]
+        Name          parser
+        Match         anagine.filtered
+        Key_Name      usage_json
+        Parser        anagine_usage_json
+        Reserve_Data  On
+        Preserve_Key  Off
+
+  outputs: |
+    [OUTPUT]
+        Name                 cloudwatch_logs
+        Match                kube.*
+        region               ${AWS_REGION}
+        log_group_name       ${LOG_GROUP_NAME}
+        log_stream_name      fallback-stream
+        log_stream_template  $cw_stream
+        auto_create_group    true
+        log_key              log
+
+    # Send all anagine records to CloudWatch (unfiltered).
+    [OUTPUT]
+        Name                 cloudwatch_logs
+        Match                anagine.all
+        region               ${AWS_REGION}
+        log_group_name       ${LOG_GROUP_NAME}
+        log_stream_name      fallback-stream
+        log_stream_template  $cw_stream
+        auto_create_group    true
+        log_key              log
+
+    [OUTPUT]
+        Name               opensearch
+        Match              anagine.filtered
+        Host               ${OPENSEARCH_HOST}
+        Port               443
+        Index              anagine-logs
+        Suppress_Type_Name On
+        AWS_Auth           On
+        AWS_Region         ${AWS_REGION}
+        aws_service_name   es
+        tls                On
+        tls.verify         On
+        Generate_ID        On
+        Retry_Limit        3
+
+serviceAccount:
+  create: true
+  annotations:
+    # Requires IAM role: arn:aws:iam::742378880825:role/gen3-service/ardac2prd-fluentbit-sa
+    # Role needs: CloudWatch Logs (logs:CreateLogGroup, logs:CreateLogStream, logs:PutLogEvents)
+    #             OpenSearch write access (es:ESHttp*) on the ardac2prd domain
+    eks.amazonaws.com/role-arn: "arn:aws:iam::742378880825:role/gen3-service/ardac2prd-fluentbit-sa"
