@@ -121,7 +121,7 @@ fence:
     slack_send_dbgap: false
 
 frontend-framework:
-  enabled: true
+  enabled: false
   replicaCount: 2
   image:
     repository: "quay.io/cdis/frontend-framework"
