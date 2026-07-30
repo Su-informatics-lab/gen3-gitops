@@ -27,7 +27,7 @@ cert-manager:
 coreDNS:
   enabled: true
   configuration:
-    enabled: false
+    enabled: true
 
 ebs-csi-driver:
   enabled: true

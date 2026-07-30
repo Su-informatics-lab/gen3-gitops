@@ -1,0 +1,31 @@
+priorityClassName: system-cluster-critical
+
+service:
+  clusterIP: "172.20.0.10"
+  name: "kube-dns"
+
+autoscaler:
+  enabled: true
+  replicas: 2
+
+k8sAppLabelOverride: "kube-dns"
+
+deployment:
+  name: "coredns-argo"
+
+affinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+              - key: k8s-app
+                operator: In
+                values:
+                  - kube-dns
+          topologyKey: kubernetes.io/hostname
+
+prometheus:
+  service:
+    enabled: true
