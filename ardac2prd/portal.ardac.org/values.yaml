@@ -1711,6 +1711,9 @@ wts:
   externalSecrets:
     dbcreds: "ardac2prd-default-wts-creds"
     createWtsOidcClientSecret: false
+    wtsG3auto: "ardac2prd-default-wts-g3auto"
+    wtsOidcClient: "ardac2prd-default-wts-oidc-client"
+  oidc_job_enabled: false
 
 etl:
   enabled: true
