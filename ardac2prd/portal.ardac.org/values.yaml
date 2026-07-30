@@ -15,7 +15,7 @@ global:
   externalSecrets:
     deploy: true
   postgres:
-    dbCreate: true
+    dbCreate: false
     externalSecret: "ardac2prd-aurora-master-password"
   environment: "ardac2prd"
   hostname: "new.portal.ardac.org"
@@ -253,9 +253,6 @@ peregrine:
     tag: "2026.03"
   externalSecrets:
     dbcreds: "ardac2prd-default-peregrine-creds"
-    pushSecret: true
-  postgres:
-    host: "ardac2prd-aurora-cluster-instance.cxvyctcwgfel.us-east-1.rds.amazonaws.com"
 
 pidgin:
   enabled: false
