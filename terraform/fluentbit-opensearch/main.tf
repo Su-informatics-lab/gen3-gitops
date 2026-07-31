@@ -35,6 +35,7 @@ resource "aws_cloudwatch_log_group" "fluentbit" {
 
   lifecycle {
     prevent_destroy = true
+    ignore_changes  = [tags["Organization"]]
   }
 }
 
