@@ -2,6 +2,7 @@ global:
   aws:
     enabled: true
     account: "613495871066"
+    awsEsProxyRoleArn: arn:aws:iam::613495871066:role/gen3-service/ardac1dmo-esproxy-sa
     hatchery_role: "arn:aws:iam::613495871066:role/gen3-service/ardac1dmo-default-hatchery-sa"
     secretStoreServiceAccount:
       enabled: true
