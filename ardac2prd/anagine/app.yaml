@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: anagine
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - chart: anagine
+      repoURL: https://helm.ardac.org
+      targetRevision: "0.1.0"
+      helm:
+        releaseName: anagine
+        valueFiles:
+          - $values/ardac2prd/anagine/values.yaml
+    - repoURL: 'https://github.com/Su-informatics-lab/gen3-gitops.git'
+      targetRevision: main
+      ref: values
+    - repoURL: 'https://github.com/Su-informatics-lab/gen3-gitops.git'
+      targetRevision: main
+      path: ardac2prd/anagine/manifests
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: default
+  syncPolicy:
+    automated:
+      selfHeal: true
