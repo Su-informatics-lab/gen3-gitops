@@ -1,0 +1,11 @@
+api:
+  replicaCount: 2
+
+ollama:
+  replicaCount: 1
+
+pyKernel:
+  replicaCount: 2
+
+rserve:
+  replicaCount: 2
