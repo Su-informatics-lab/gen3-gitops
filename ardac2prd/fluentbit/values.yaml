@@ -90,12 +90,12 @@ config:
         script  /fluent-bit/scripts/stream_name.lua
         call    set_stream_name
 
-    # Stage 1: Re-tag all anagine namespace logs as anagine.all for explicit CloudWatch routing.
+    # Stage 1: Re-tag all anagine release logs as anagine.all for explicit CloudWatch routing.
     # Keep false removes the original kube.* record to avoid re-emission loops.
     [FILTER]
         Name                  rewrite_tag
         Match                 kube.*
-        Rule                  $kubernetes['namespace_name'] ^ardac-anagine$ anagine.all false
+        Rule                  $kubernetes['labels']['app.kubernetes.io/instance'] ^anagine$ anagine.all false
         Emitter_Name          anagine_all_reemit
         Emitter_Storage.type  memory
         Emitter_Mem_Buf_Limit 50M
@@ -105,7 +105,7 @@ config:
     [FILTER]
         Name                  rewrite_tag
         Match                 anagine.all
-        Rule                  $kubernetes['namespace_name'] ^ardac-anagine$ anagine.filtered true
+        Rule                  $kubernetes['labels']['app.kubernetes.io/instance'] ^anagine$ anagine.filtered true
         Emitter_Name          anagine_filtered_reemit
         Emitter_Storage.type  memory
         Emitter_Mem_Buf_Limit 50M
