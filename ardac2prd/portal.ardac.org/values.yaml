@@ -124,8 +124,8 @@ frontend-framework:
   enabled: true
   replicaCount: 2
   image:
-    repository: "quay.io/cdis/commons-frontend-app"
-    tag: "main@sha256:5984be77b57880d523902b2ba3069e9f7749785846cdf9673ea7410d35a0e41d"
+    repository: "quay.io/sulab/ardac-frontend-app"
+    tag: "ff-35b9b39@sha256:7da9d6bb608f75326bb318b14193e06944b2512e1555097d827109fd6b7fa2eb"
   customConfig:
     enabled: true
     dir: "ardac2prd"
