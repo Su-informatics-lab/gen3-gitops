@@ -121,11 +121,16 @@ fence:
     slack_send_dbgap: false
 
 frontend-framework:
-  enabled: false
+  enabled: true
   replicaCount: 2
   image:
-    repository: "quay.io/cdis/frontend-framework"
-    tag: "main"
+    repository: "quay.io/sulab/ardac-frontend-app"
+    tag: "ff-35b9b39@sha256:7da9d6bb608f75326bb318b14193e06944b2512e1555097d827109fd6b7fa2eb"
+  customConfig:
+    enabled: true
+    dir: "ardac2prd"
+    repo: "https://github.com/Su-informatics-lab/gen3-config.git"
+    branch: "main"
 
 grafana:
   enabled: false
