@@ -166,6 +166,9 @@ hatchery:
   image:
     repository: quay.io/cdis/hatchery
     tag: "2026.03"
+  # This chart flag suppresses ExternalSecret generation; no Stata workspace is configured.
+  externalSecrets:
+    createK8sStataSecret: true
 
   hatchery:
     sidecarContainer:
