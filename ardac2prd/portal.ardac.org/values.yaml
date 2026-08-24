@@ -166,6 +166,9 @@ hatchery:
   image:
     repository: quay.io/cdis/hatchery
     tag: "2026.03"
+  # No Stata workspace is configured; suppress the unused license ExternalSecret.
+  externalSecrets:
+    createK8sStataSecret: true
 
   hatchery:
     sidecarContainer:
