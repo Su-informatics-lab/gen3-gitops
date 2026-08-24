@@ -14,6 +14,7 @@ global:
   dev: false
   externalSecrets:
     deploy: true
+    apiVersion: external-secrets.io/v1beta1
   postgres:
     dbCreate: false
     externalSecret: "ardac2prd-aurora-master-password"

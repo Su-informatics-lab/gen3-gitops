@@ -21,6 +21,9 @@ calico:
   configuration:
     enabled: false
 
+custom-objects:
+  enabled: true
+
 cert-manager:
   enabled: true
 
