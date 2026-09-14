@@ -271,7 +271,7 @@ portal:
   replicaCount: 2
   image:
     repository: bearbbhao/ardac-portal
-    tag: "1_3_4"
+    tag: "1_4_0"
   gitops:
     json: |
       {
