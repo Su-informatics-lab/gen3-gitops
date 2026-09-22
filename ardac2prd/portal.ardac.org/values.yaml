@@ -2002,50 +2002,49 @@ etl:
       - name: ardac_publication
         doc_type: publication
         type: aggregator
-        root: publication        
+        root: publication
         props:
-        - name: publication_id
-          src: submitter_id
-        - name: submitter_id
-        - name: project_id
-        - name: pmid
-        - name: pmcid
-        - name: doi
-        - name: article_title
-        - name: abstract_text
-        - name: author_list
-        - name: collective_name
-        - name: first_author
-        - name: last_author
-        - name: corresponding_author
-        - name: corresponding_author_basis
-        - name: journal_title
-        - name: medline_ta
-        - name: publication_year
-          type: integer
-        - name: volume
-        - name: issue
-        - name: pagination
-        - name: elocation_id
-        - name: pub_date
-        - name: article_date
-        - name: url
-        - name: ardac_publication_type
-        - name: pubmed_publication_types
-        - name: pubmed_publication_status
-        - name: ardac_inclusion_status
-        - name: ardac_curation_status
-        - name: ardac_alchepnet_relevance
-        - name: pubmed_match_status
-        - name: grant_id
-        - name: agency
-        - name: acronym
-        - name: funding_evidence
-        - name: mesh_descriptors
-        - name: source_list
-        - name: source_record_id
-        - name: pubmed_retrieval_date
-        - name: record_hash
-        - name: created_datetime
-        - name: updated_datetime
-
+          - name: publication_id
+            src: submitter_id
+          - name: submitter_id
+          - name: project_id
+          - name: pmid
+          - name: pmcid
+          - name: doi
+          - name: article_title
+          - name: abstract_text
+          - name: author_list
+          - name: collective_name
+          - name: first_author
+          - name: last_author
+          - name: corresponding_author
+          - name: corresponding_author_basis
+          - name: journal_title
+          - name: medline_ta
+          - name: publication_year
+            type: integer
+          - name: volume
+          - name: issue
+          - name: pagination
+          - name: elocation_id
+          - name: pub_date
+          - name: article_date
+          - name: url
+          - name: ardac_publication_type
+          - name: pubmed_publication_types
+          - name: pubmed_publication_status
+          - name: ardac_inclusion_status
+          - name: ardac_curation_status
+          - name: ardac_alchepnet_relevance
+          - name: pubmed_match_status
+          - name: grant_id
+          - name: agency
+          - name: acronym
+          - name: funding_evidence
+          - name: mesh_descriptors
+          - name: source_list
+          - name: source_record_id
+          - name: pubmed_retrieval_date
+          - name: record_hash
+          - name: created_datetime
+          - name: updated_datetime
