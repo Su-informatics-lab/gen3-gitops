@@ -274,7 +274,7 @@ portal:
   replicaCount: 2
   image:
     repository: bearbbhao/ardac-portal
-    tag: "1_4_0"
+    tag: "1_5_0"
   gitops:
     json: |
       {
@@ -1392,6 +1392,206 @@ portal:
                 "referenceIdFieldInResourceIndex": "_case_id",
                 "referenceIdFieldInDataIndex": "_case_id"
               },
+              "accessibleFieldCheckList": [
+                "project_id"
+              ],
+              "accessibleValidationField": "project_id"
+            }
+          },
+          {
+            "tabTitle": "Publications",
+            "charts": {
+              "project_id": {
+                "chartType": "count",
+                "title": "Projects"
+              },
+              "publication_year": {
+                "chartType": "bar",
+                "title": "Publications by Year"
+              },
+              "journal_title": {
+                "chartType": "fullpie",
+                "title": "Publications by Journal"
+              }
+            },
+            "filters": {
+              "tabs": [
+                {
+                  "title": "Publication",
+                  "searchFields": [
+                    "article_title",
+                    "pmid",
+                    "doi"
+                  ],
+                  "fields": [
+                    "project_id",
+                    "publication_year",
+                    "ardac_publication_type",
+                    "journal_title"
+                  ]
+                },
+                {
+                  "title": "Authors",
+                  "searchFields": [
+                    "author_list",
+                    "collective_name"
+                  ],
+                  "fields": [
+                    "first_author",
+                    "corresponding_author",
+                    "last_author"
+                  ]
+                },
+                {
+                  "title": "Curation",
+                  "fields": [
+                    "ardac_inclusion_status",
+                    "ardac_curation_status",
+                    "ardac_alchepnet_relevance",
+                    "pubmed_match_status"
+                  ]
+                }
+              ]
+            },
+            "table": {
+              "enabled": true,
+              "ordered": true,
+              "fields": [
+                "publication_id",
+                "article_title",
+                "author_list",
+                "collective_name",
+                "corresponding_author",
+                "medline_ta",
+                "publication_year",
+                "volume",
+                "issue",
+                "pagination",
+                "elocation_id",
+                "pub_date",
+                "article_date",
+                "doi",
+                "pmid",
+                "pmcid",
+                "ardac_publication_type",
+                "ardac_inclusion_status",
+                "url"
+              ],
+              "linkFields": [
+                "url"
+              ]
+            },
+            "dropdowns": {},
+            "buttons": [],
+            "guppyConfig": {
+              "dataType": "publication",
+              "nodeCountTitle": "Publications",
+              "fieldMapping": [
+                {
+                  "field": "project_id",
+                  "name": "Project"
+                },
+                {
+                  "field": "publication_id",
+                  "name": "Publication ID"
+                },
+                {
+                  "field": "article_title",
+                  "name": "Title"
+                },
+                {
+                  "field": "author_list",
+                  "name": "Authors"
+                },
+                {
+                  "field": "collective_name",
+                  "name": "Group Author"
+                },
+                {
+                  "field": "first_author",
+                  "name": "First Author"
+                },
+                {
+                  "field": "corresponding_author",
+                  "name": "Corresponding Author"
+                },
+                {
+                  "field": "last_author",
+                  "name": "Last-listed Author"
+                },
+                {
+                  "field": "journal_title",
+                  "name": "Journal"
+                },
+                {
+                  "field": "medline_ta",
+                  "name": "Journal Abbreviation"
+                },
+                {
+                  "field": "publication_year",
+                  "name": "Year"
+                },
+                {
+                  "field": "volume",
+                  "name": "Volume"
+                },
+                {
+                  "field": "issue",
+                  "name": "Issue"
+                },
+                {
+                  "field": "pagination",
+                  "name": "Pages"
+                },
+                {
+                  "field": "elocation_id",
+                  "name": "Electronic Location ID"
+                },
+                {
+                  "field": "pub_date",
+                  "name": "Publication Date"
+                },
+                {
+                  "field": "article_date",
+                  "name": "Epub Date"
+                },
+                {
+                  "field": "doi",
+                  "name": "DOI"
+                },
+                {
+                  "field": "pmid",
+                  "name": "PMID"
+                },
+                {
+                  "field": "pmcid",
+                  "name": "PMCID"
+                },
+                {
+                  "field": "ardac_publication_type",
+                  "name": "Publication Type"
+                },
+                {
+                  "field": "ardac_inclusion_status",
+                  "name": "ARDaC Inclusion Status"
+                },
+                {
+                  "field": "ardac_curation_status",
+                  "name": "Curation Status"
+                },
+                {
+                  "field": "ardac_alchepnet_relevance",
+                  "name": "AlcHepNet Relevance"
+                },
+                {
+                  "field": "pubmed_match_status",
+                  "name": "PubMed Match Status"
+                },
+                {
+                  "field": "url",
+                  "name": "Publication Link"
+                }
+              ],
               "accessibleFieldCheckList": [
                 "project_id"
               ],
