@@ -1410,7 +1410,7 @@ portal:
                 "title": "Publications by Year"
               },
               "journal_title": {
-                "chartType": "fullpie",
+                "chartType": "fullPie",
                 "title": "Publications by Journal"
               }
             },
