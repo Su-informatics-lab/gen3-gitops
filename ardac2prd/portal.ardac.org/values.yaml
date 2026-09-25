@@ -274,7 +274,7 @@ portal:
   replicaCount: 2
   image:
     repository: bearbbhao/ardac-portal
-    tag: "1_5_1"
+    tag: "1_5_2"
   gitops:
     json: |
       {
@@ -659,7 +659,7 @@ portal:
                 },
                 {
                   "field": "cohort",
-                  "name": "Group in OBS"
+                  "name": "Group in AHN OBS"
                 },
                 {
                   "field": "aki_status",
@@ -847,7 +847,7 @@ portal:
                 },
                 {
                   "field": "case_group",
-                  "name": "Group in OBS"
+                  "name": "Group in AHN OBS"
                 },
                 {
                   "field": "project_id",
@@ -1054,7 +1054,7 @@ portal:
                 },
                 {
                   "field": "case_group",
-                  "name": "Group in OBS"
+                  "name": "Group in AHN OBS"
                 },
                 {
                   "field": "PI_name",
@@ -1245,7 +1245,7 @@ portal:
                 },
                 {
                   "field": "case_group",
-                  "name": "Group in OBS"
+                  "name": "Group in AHN OBS"
                 },
                 {
                   "field": "PI_name",
@@ -1429,15 +1429,6 @@ portal:
                     "publication_year",
                     "ardac_publication_type",
                     "journal_title"
-                  ]
-                },
-                {
-                  "title": "Curation",
-                  "fields": [
-                    "ardac_inclusion_status",
-                    "ardac_curation_status",
-                    "ardac_alchepnet_relevance",
-                    "pubmed_match_status"
                   ]
                 }
               ]
