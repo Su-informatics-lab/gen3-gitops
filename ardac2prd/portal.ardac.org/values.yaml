@@ -274,7 +274,7 @@ portal:
   replicaCount: 2
   image:
     repository: bearbbhao/ardac-portal
-    tag: "1_5_0"
+    tag: "1_5_1"
   gitops:
     json: |
       {
@@ -1407,7 +1407,8 @@ portal:
               },
               "publication_year": {
                 "chartType": "bar",
-                "title": "Publications by Year"
+                "title": "Publications by Year",
+                "sortByKey": "desc"
               },
               "journal_title": {
                 "chartType": "fullPie",
@@ -1428,18 +1429,6 @@ portal:
                     "publication_year",
                     "ardac_publication_type",
                     "journal_title"
-                  ]
-                },
-                {
-                  "title": "Authors",
-                  "searchFields": [
-                    "author_list",
-                    "collective_name"
-                  ],
-                  "fields": [
-                    "first_author",
-                    "corresponding_author",
-                    "last_author"
                   ]
                 },
                 {
