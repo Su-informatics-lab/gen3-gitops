@@ -409,7 +409,7 @@ portal:
         "name": "Anagine",
         "color": "#A2A2A2",
         "tooltip": "Developer-only: For testing and internal use",
-        "disabled": false
+        "disabled": true
         }
         ]
         },
