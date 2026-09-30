@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: new-portal-ardac1prd-redirect
+  name: load-balancer-ardac1prd
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: 'https://github.com/Su-informatics-lab/gen3-gitops.git'
     targetRevision: main
-    path: ardac1prd/new.portal.ardac.org/manifests
+    path: ardac1prd/load-balancer/manifests
   destination:
     server: "https://kubernetes.default.svc"
     namespace: default
