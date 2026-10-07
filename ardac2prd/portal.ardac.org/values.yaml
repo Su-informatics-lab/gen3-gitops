@@ -45,7 +45,7 @@ ambassador:
 
 arborist:
   enabled: true
-  replicaCount: 2
+  replicaCount: 4
   image:
     repository: quay.io/cdis/arborist
     tag: "2026.03"
@@ -77,7 +77,7 @@ audit:
 
 aws-es-proxy:
   enabled: true
-  replicaCount: 2
+  replicaCount: 4
   image:
     repository: quay.io/cdis/aws-es-proxy
     tag: "master"
@@ -97,7 +97,7 @@ dicom-viewer:
 
 fence:
   enabled: true
-  replicaCount: 2
+  replicaCount: 4
   image:
     repository: quay.io/cdis/fence
     tag: "2026.03"
@@ -138,7 +138,7 @@ grafana:
 
 guppy:
   enabled: true
-  replicaCount: 2
+  replicaCount: 4
   indices:
     - index: ardac_case
       type: case
@@ -228,7 +228,7 @@ hatchery:
 
 indexd:
   enabled: true
-  replicaCount: 2
+  replicaCount: 4
   image:
     repository: quay.io/cdis/indexd
     tag: "2026.03"
@@ -259,7 +259,7 @@ metadata:
 
 peregrine:
   enabled: true
-  replicaCount: 2
+  replicaCount: 4
   image:
     repository: quay.io/cdis/peregrine
     tag: "2026.03"
@@ -271,7 +271,7 @@ pidgin:
 
 portal:
   enabled: true
-  replicaCount: 2
+  replicaCount: 4
   image:
     repository: bearbbhao/ardac-portal
     tag: "1_5_2"
@@ -1858,7 +1858,7 @@ requestor:
 
 revproxy:
   enabled: true
-  replicaCount: 2
+  replicaCount: 4
   image:
     repository: quay.io/cdis/nginx
     tag: "2026.03"
@@ -1872,7 +1872,7 @@ sheepdog:
   image:
     repository: quay.io/cdis/sheepdog
     tag: "2026.03"
-  replicaCount: 10
+  replicaCount: 2
   externalSecrets:
     dbcreds: "ardac2prd-default-sheepdog-creds"
 
