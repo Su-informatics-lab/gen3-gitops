@@ -67,7 +67,7 @@ karpenter-crds:
   enabled: true
   usaAlias: true # Temporary workaround for an upstream chart/template typo; remove after upgrading to a chart version that correctly uses `useAlias` only.
   useAlias: true
-  alias: "al2023@v20260724"
+  alias: "al2023@v20260930"
   selectorTag: ardac2prd
   migration: true
   default:
