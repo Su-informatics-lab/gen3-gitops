@@ -60,7 +60,7 @@ karpenter:
     enabled: true
 
 karpenter-crds:
-  amiSelectorName: "amazon-eks-node-al2023-x86_64-standard-1.35-*"
+  amiSelectorName: "amazon-eks-node-al2023-x86_64-standard-1.36-*"
   amiOwner: "amazon"
   enabled: true
   usaAlias: true # Temporary workaround for an upstream chart/template typo; remove after upgrading to a chart version that correctly uses `useAlias` only.

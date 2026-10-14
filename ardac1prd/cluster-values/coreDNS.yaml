@@ -1,6 +1,6 @@
 image:
   repository: "602401143452.dkr.ecr.us-east-1.amazonaws.com/eks/coredns"
-  tag: "v1.13.2-eksbuild.50"
+  tag: "v1.14.7-eksbuild.10"
 
 priorityClassName: system-cluster-critical
 
