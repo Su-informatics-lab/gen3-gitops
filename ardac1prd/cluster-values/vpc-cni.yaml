@@ -1,0 +1,19 @@
+enableNetworkPolicy: false
+originalMatchLabels: true
+
+image:
+  region: us-east-1
+  tag: "v1.22.4-eksbuild.3"
+
+init:
+  image:
+    region: us-east-1
+    tag: "v1.22.4-eksbuild.3"
+
+nodeAgent:
+  image:
+    region: us-east-1
+
+env:
+  ANNOTATE_POD_IP: "true"
+  VPC_CNI_VERSION: "v1.22.4-eksbuild.3"
