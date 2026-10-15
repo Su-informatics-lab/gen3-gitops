@@ -21,7 +21,7 @@ global:
   environment: "ardac1prd"
   hostname: "archive.portal.ardac.org"
   revproxyArn: "arn:aws:acm:us-east-1:742378880825:certificate/a95a18e1-30f3-4608-8b87-ab634966b944"
-  dictionaryUrl: "https://dictionary.ardac.org/2.4.0/schema.json"
+  dictionaryUrl: "https://dictionary.ardac.org/2.5.1/schema.json"
   portalApp: gitops
   publicDataSets: true
   tierAccessLevel: "private"
@@ -48,7 +48,7 @@ arborist:
   replicaCount: 2
   image:
     repository: quay.io/cdis/arborist
-    tag: "2026.03"
+    tag: "2026.10"
   externalSecrets:
     dbcreds: "ardac1prd-default-arborist-creds"
 
@@ -60,7 +60,7 @@ audit:
   replicaCount: 2
   image:
     repository: quay.io/cdis/audit-service
-    tag: "2026.03"
+    tag: "2026.10"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: "arn:aws:iam::742378880825:role/gen3_service/ardac1prd-default-audit-sa"
@@ -100,7 +100,7 @@ fence:
   replicaCount: 2
   image:
     repository: quay.io/cdis/fence
-    tag: "2026.03"
+    tag: "2026.10"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: "arn:aws:iam::742378880825:role/gen3_service/ardac1prd-default-fence-sa"
@@ -146,6 +146,8 @@ guppy:
       type: lab
     - index: file_collect_index
       type: file
+    - index: ardac_publication
+      type: publication
   configIndex:
     - ardac_case-array-config
     - ardac_follow_up-array-config
@@ -153,13 +155,14 @@ guppy:
     - ardac_lab_result-array-config
     - ardac_lab-array-config
     - file_collect_index-array-config
+    - ardac_publication-array-config
 
 hatchery:
   enabled: true
   replicaCount: 2
   image:
     repository: quay.io/cdis/hatchery
-    tag: "2026.03"
+    tag: "2026.10"
 
   hatchery:
     sidecarContainer:
@@ -219,7 +222,7 @@ indexd:
   replicaCount: 2
   image:
     repository: quay.io/cdis/indexd
-    tag: "2026.03"
+    tag: "2026.10"
   defaultPrefix: "dg.ARDC/"
   externalSecrets:
     dbcreds: "ardac1prd-default-indexd-creds"
@@ -231,7 +234,7 @@ manifestservice:
   replicaCount: 2
   image:
     repository: quay.io/cdis/manifestservice
-    tag: "2026.03"
+    tag: "2026.10"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: "arn:aws:iam::742378880825:role/gen3_service/ardac1prd-default-manifestservice-sa"
@@ -250,7 +253,7 @@ peregrine:
   replicaCount: 2
   image:
     repository: quay.io/cdis/peregrine
-    tag: "2026.03"
+    tag: "2026.10"
   externalSecrets:
     dbcreds: "ardac1prd-default-peregrine-creds"
 
@@ -1669,7 +1672,7 @@ revproxy:
   replicaCount: 2
   image:
     repository: quay.io/cdis/nginx
-    tag: "2026.03"
+    tag: "2026.10"
   extraServices:
     - name: "anagine"
       path: /anagine
@@ -1679,7 +1682,7 @@ sheepdog:
   enabled: true
   image:
     repository: quay.io/cdis/sheepdog
-    tag: "2026.03"
+    tag: "2026.10"
   replicaCount: 2
   externalSecrets:
     dbcreds: "ardac1prd-default-sheepdog-creds"
@@ -1688,7 +1691,7 @@ ssjdispatcher:
   enabled: true
   image:
     repository: quay.io/cdis/ssjdispatcher
-    tag: "2026.03"
+    tag: "2026.10"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: "arn:aws:iam::742378880825:role/gen3_service/ardac1prd-default-ssjdispatcher-sa"
@@ -1697,7 +1700,7 @@ ssjdispatcher:
       eks.amazonaws.com/role-arn: "arn:aws:iam::742378880825:role/gen3_service/ardac1prd-default-ssjdispatcher-job-sa"
   externalSecrets:
     credsFile: "ardac1prd-default-ssjdispatcher-creds"
-  indexing: "quay.io/cdis/indexs3client:2026.03"
+  indexing: "quay.io/cdis/indexs3client:2026.10"
 
 sower:
   enabled: false
@@ -1707,11 +1710,13 @@ wts:
   replicaCount: 2
   image:
     repository: quay.io/cdis/workspace-token-service
-    tag: "2026.03"
+    tag: "2026.10"
   externalSecrets:
     dbcreds: "ardac1prd-default-wts-creds"
     createWtsOidcClientSecret: false
     wtsG3auto: "ardac1prd-default-wts-g3auto"
+    wtsOidcClient: "ardac1prd-default-wts-oidc-client"
+  oidc_job_enabled: false
 
 etl:
   enabled: true
@@ -1984,3 +1989,53 @@ etl:
           - name: data_type
           - name: data_format
           - name: source_node
+
+      - name: ardac_publication
+        doc_type: publication
+        type: aggregator
+        root: publication
+        props:
+          - name: publication_id
+            src: submitter_id
+          - name: submitter_id
+          - name: project_id
+          - name: pmid
+          - name: pmcid
+          - name: doi
+          - name: article_title
+          - name: abstract_text
+          - name: author_list
+          - name: collective_name
+          - name: first_author
+          - name: last_author
+          - name: corresponding_author
+          - name: corresponding_author_basis
+          - name: journal_title
+          - name: medline_ta
+          - name: publication_year
+            type: integer
+          - name: volume
+          - name: issue
+          - name: pagination
+          - name: elocation_id
+          - name: pub_date
+          - name: article_date
+          - name: url
+          - name: ardac_publication_type
+          - name: pubmed_publication_types
+          - name: pubmed_publication_status
+          - name: ardac_inclusion_status
+          - name: ardac_curation_status
+          - name: ardac_alchepnet_relevance
+          - name: pubmed_match_status
+          - name: grant_id
+          - name: agency
+          - name: acronym
+          - name: funding_evidence
+          - name: mesh_descriptors
+          - name: source_list
+          - name: source_record_id
+          - name: pubmed_retrieval_date
+          - name: record_hash
+          - name: created_datetime
+          - name: updated_datetime
