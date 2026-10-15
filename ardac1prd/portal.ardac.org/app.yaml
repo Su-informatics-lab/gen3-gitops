@@ -8,7 +8,7 @@ spec:
   sources:
     - path: helm/gen3
       repoURL: https://github.com/uc-cdis/gen3-helm
-      targetRevision: 6c432454d71bac8f86190d38eb5d6a686f47a9df
+      targetRevision: 3728e54830ed69deee37c8cf88938c9f9bced0b8
       helm:
         releaseName: gen3
         valueFiles:
