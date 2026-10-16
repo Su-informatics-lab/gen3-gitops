@@ -255,6 +255,12 @@ peregrine:
     tag: "2026.10"
   externalSecrets:
     dbcreds: "ardac1prd-default-peregrine-creds"
+  volumes:
+    - name: shared-data
+      emptyDir: {}
+    - name: config-volume
+      configMap:
+        name: peregrine-settings-20261016
 
 pidgin:
   enabled: false

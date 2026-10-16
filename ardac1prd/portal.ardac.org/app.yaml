@@ -16,6 +16,9 @@ spec:
     - repoURL: 'https://github.com/Su-informatics-lab/gen3-gitops.git'
       targetRevision: main
       ref: values
+    - path: ardac1prd/portal.ardac.org/overrides
+      repoURL: 'https://github.com/Su-informatics-lab/gen3-gitops.git'
+      targetRevision: main
   destination:
     server: "https://kubernetes.default.svc"
     namespace: default
