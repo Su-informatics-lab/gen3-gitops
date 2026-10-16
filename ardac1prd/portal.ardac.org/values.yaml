@@ -146,6 +146,8 @@ guppy:
       type: lab
     - index: file_collect_index
       type: file
+    - index: ardac_publication
+      type: publication
   configIndex:
     - ardac_case-array-config
     - ardac_follow_up-array-config
@@ -153,6 +155,7 @@ guppy:
     - ardac_lab_result-array-config
     - ardac_lab-array-config
     - file_collect_index-array-config
+    - ardac_publication-array-config
 
 hatchery:
   enabled: true
