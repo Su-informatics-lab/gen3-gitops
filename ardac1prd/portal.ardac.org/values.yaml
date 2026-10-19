@@ -19,7 +19,7 @@ global:
     dbCreate: false
     externalSecret: "ardac1prd-aurora-master-password"
   environment: "ardac1prd"
-  hostname: "archive.portal.ardac.org"
+  hostname: "portal.ardac.org"
   revproxyArn: "arn:aws:acm:us-east-1:742378880825:certificate/a95a18e1-30f3-4608-8b87-ab634966b944"
   dictionaryUrl: "https://dictionary.ardac.org/2.5.1/schema.json"
   portalApp: gitops
@@ -45,7 +45,7 @@ ambassador:
 
 arborist:
   enabled: true
-  replicaCount: 2
+  replicaCount: 4
   image:
     repository: quay.io/cdis/arborist
     tag: "2026.10"
@@ -77,7 +77,7 @@ audit:
 
 aws-es-proxy:
   enabled: true
-  replicaCount: 2
+  replicaCount: 4
   image:
     repository: quay.io/cdis/aws-es-proxy
     tag: "master"
@@ -97,7 +97,7 @@ dicom-viewer:
 
 fence:
   enabled: true
-  replicaCount: 2
+  replicaCount: 4
   image:
     repository: quay.io/cdis/fence
     tag: "2026.10"
@@ -132,7 +132,7 @@ grafana:
 
 guppy:
   enabled: true
-  replicaCount: 2
+  replicaCount: 4
   indices:
     - index: ardac_case
       type: case
@@ -221,7 +221,7 @@ hatchery:
 
 indexd:
   enabled: true
-  replicaCount: 2
+  replicaCount: 4
   image:
     repository: quay.io/cdis/indexd
     tag: "2026.10"
@@ -252,7 +252,7 @@ metadata:
 
 peregrine:
   enabled: true
-  replicaCount: 2
+  replicaCount: 4
   image:
     repository: quay.io/cdis/peregrine
     tag: "2026.10"
@@ -270,7 +270,7 @@ pidgin:
 
 portal:
   enabled: true
-  replicaCount: 2
+  replicaCount: 4
   image:
     repository: bearbbhao/ardac-portal
     tag: "1_5_2"
@@ -1857,7 +1857,7 @@ requestor:
 
 revproxy:
   enabled: true
-  replicaCount: 2
+  replicaCount: 4
   image:
     repository: quay.io/cdis/nginx
     tag: "2026.10"
