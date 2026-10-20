@@ -48,7 +48,7 @@ arborist:
   replicaCount: 2
   image:
     repository: quay.io/cdis/arborist
-    tag: "2026.03"
+    tag: "2026.10"
   externalSecrets:
     dbcreds: "ardac2prd-default-arborist-creds"
 
@@ -60,7 +60,7 @@ audit:
   replicaCount: 2
   image:
     repository: quay.io/cdis/audit-service
-    tag: "2026.03"
+    tag: "2026.10"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: "arn:aws:iam::742378880825:role/gen3_service/ardac2prd-default-audit-sa"
@@ -100,7 +100,7 @@ fence:
   replicaCount: 2
   image:
     repository: quay.io/cdis/fence
-    tag: "2026.03"
+    tag: "2026.10"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: "arn:aws:iam::742378880825:role/gen3_service/ardac2prd-default-fence-sa"
@@ -168,7 +168,7 @@ hatchery:
   replicaCount: 2
   image:
     repository: quay.io/cdis/hatchery
-    tag: "2026.03"
+    tag: "2026.10"
   # This chart flag suppresses ExternalSecret generation; no Stata workspace is configured.
   externalSecrets:
     createK8sStataSecret: true
@@ -231,7 +231,7 @@ indexd:
   replicaCount: 2
   image:
     repository: quay.io/cdis/indexd
-    tag: "2026.03"
+    tag: "2026.10"
   defaultPrefix: "dg.ARDC/"
   externalSecrets:
     dbcreds: "ardac2prd-default-indexd-creds"
@@ -243,7 +243,7 @@ manifestservice:
   replicaCount: 2
   image:
     repository: quay.io/cdis/manifestservice
-    tag: "2026.03"
+    tag: "2026.10"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: "arn:aws:iam::742378880825:role/gen3_service/ardac2prd-default-manifestservice-sa"
@@ -262,7 +262,7 @@ peregrine:
   replicaCount: 2
   image:
     repository: quay.io/cdis/peregrine
-    tag: "2026.03"
+    tag: "2026.10"
   externalSecrets:
     dbcreds: "ardac2prd-default-peregrine-creds"
 
@@ -1861,7 +1861,7 @@ revproxy:
   replicaCount: 2
   image:
     repository: quay.io/cdis/nginx
-    tag: "2026.03"
+    tag: "2026.10"
   extraServices:
     - name: "anagine"
       path: /anagine
@@ -1871,7 +1871,7 @@ sheepdog:
   enabled: true
   image:
     repository: quay.io/cdis/sheepdog
-    tag: "2026.03"
+    tag: "2026.10"
   replicaCount: 2
   externalSecrets:
     dbcreds: "ardac2prd-default-sheepdog-creds"
@@ -1880,7 +1880,7 @@ ssjdispatcher:
   enabled: true
   image:
     repository: quay.io/cdis/ssjdispatcher
-    tag: "2026.03"
+    tag: "2026.10"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: "arn:aws:iam::742378880825:role/gen3_service/ardac2prd-default-ssjdispatcher-sa"
@@ -1889,7 +1889,7 @@ ssjdispatcher:
       eks.amazonaws.com/role-arn: "arn:aws:iam::742378880825:role/gen3_service/ardac2prd-default-ssjdispatcher-job-sa"
   externalSecrets:
     credsFile: "ardac2prd-default-ssjdispatcher-creds"
-  indexing: "quay.io/cdis/indexs3client:2026.03"
+  indexing: "quay.io/cdis/indexs3client:2026.10"
 
 sower:
   enabled: false
@@ -1899,7 +1899,7 @@ wts:
   replicaCount: 2
   image:
     repository: quay.io/cdis/workspace-token-service
-    tag: "2026.03"
+    tag: "2026.10"
   externalSecrets:
     dbcreds: "ardac2prd-default-wts-creds"
     createWtsOidcClientSecret: false
