@@ -1,9 +1,9 @@
-# ARDAC2 Archive Deployment
+# ARDAC2 Green Development Deployment
 
 This directory contains the GitOps configuration for the `ardac2prd` EKS
-cluster. `archive.portal.ardac.org` is the canonical Gen3 hostname. The
-supplemental ingress in `load-balancer/` redirects `portal.ardac.org` to the
-archive hostname on the same Application Load Balancer.
+cluster. `new.portal.ardac.org` is the canonical Gen3 hostname. The
+supplemental ingress in `load-balancer/` redirects `archive.portal.ardac.org`
+to the development hostname on the same Application Load Balancer.
 
 Before bootstrapping Argo CD, confirm these values match the manually managed `ardac2prd` infrastructure:
 
@@ -14,7 +14,7 @@ Before bootstrapping Argo CD, confirm these values match the manually managed `a
 
 Ensure the Audit and SSJ Dispatcher queues/secrets provisioned by Terraform match what this configuration references (for example, Audit `server.sqs.url` points at an `ardac2prd-*` queue). Do not bootstrap this deployment until the environment-specific queues and corresponding secrets exist.
 
-Route 53 is managed separately. Both `portal.ardac.org` and
-`new.portal.ardac.org` must resolve to the `ardac1prd` Application Load
-Balancer. `archive.portal.ardac.org` resolves to the `ardac2prd` Application
-Load Balancer.
+Route 53 is managed separately. `portal.ardac.org` resolves to the `ardac1prd`
+Application Load Balancer. Both `new.portal.ardac.org` and
+`archive.portal.ardac.org` resolve to the `ardac2prd` Application Load
+Balancer.
