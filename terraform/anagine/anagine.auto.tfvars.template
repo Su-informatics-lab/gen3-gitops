@@ -1,11 +1,11 @@
-# Copy this file to anagine-reports.auto.tfvars and select the AWS profile that
+# Copy this file to anagine.auto.tfvars and select the AWS profile that
 # owns the ardac2prd cluster. The copied .tfvars file is ignored by Git.
 #
 # Initialize the partial backend before planning or applying:
 #
 #   terraform init \
 #     -backend-config="bucket=ardac-portal-terraform-state-705452667" \
-#     -backend-config="key=ardac2prd/anagine-reports/terraform.tfstate"
+#     -backend-config="key=ardac2prd/anagine/terraform.tfstate"
 
 prefix       = "ardac2prd"
 cluster_name = "ardac2prd"

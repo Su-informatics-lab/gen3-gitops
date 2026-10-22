@@ -7,6 +7,6 @@ terraform {
     #
     #   terraform init \
     #     -backend-config="bucket=ardac-portal-terraform-state-705452667" \
-    #     -backend-config="key=ardac2prd/anagine-reports/terraform.tfstate"
+    #     -backend-config="key=ardac2prd/anagine/terraform.tfstate"
   }
 }
