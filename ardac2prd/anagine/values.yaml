@@ -1,11 +1,27 @@
+serviceAccount:
+  create: true
+  name: anagine
+  automountServiceAccountToken: true
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::742378880825:role/gen3-service/ardac2prd-anagine-sa
+
 api:
-  replicaCount: 1
+  replicaCount: 2
+  image:
+    tag: latest
+  env:
+    reportS3Bucket: ardac2prd-anagine-reports
+    reportS3Region: us-east-1
 
 ollama:
   replicaCount: 1
 
 pyKernel:
   replicaCount: 2
+  image:
+    tag: latest
 
 rserve:
   replicaCount: 2
+  image:
+    tag: latest
