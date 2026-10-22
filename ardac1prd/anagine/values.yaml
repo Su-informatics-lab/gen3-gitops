@@ -1,11 +1,17 @@
 api:
   replicaCount: 1
+  image:
+    tag: "2026.09"
 
 ollama:
   replicaCount: 1
 
 pyKernel:
   replicaCount: 2
+  image:
+    tag: "2026.09"
 
 rserve:
   replicaCount: 2
+  image:
+    tag: "2026.09"

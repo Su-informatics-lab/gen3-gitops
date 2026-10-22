@@ -8,7 +8,7 @@ serviceAccount:
 api:
   replicaCount: 2
   image:
-    tag: b76fd4ab9192aa192818087d91867e422a504f0b
+    tag: latest
   env:
     reportS3Bucket: ardac2prd-anagine-reports
     reportS3Region: us-east-1
@@ -18,6 +18,10 @@ ollama:
 
 pyKernel:
   replicaCount: 2
+  image:
+    tag: latest
 
 rserve:
   replicaCount: 2
+  image:
+    tag: latest
