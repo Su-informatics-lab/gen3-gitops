@@ -274,13 +274,17 @@ portal:
   replicaCount: 2
   image:
     repository: bearbbhao/ardac-portal
-    tag: "1_5_2"
+    tag: "1_6_1"
   gitops:
     json: |
       {
         "gaTrackingId": "G-2QBC4951QY",
         "components": {
         "appName": "The AlcHepNet Research Data Commons Portal",
+        "apiKeys": {
+        "creationEnabled": false,
+        "creationDisabledMessage": "API key creation is disabled for ARDaC. Contact ardac@iu.edu for programmatic access."
+        },
         "graphql": {
         "boardCounts": [
         {
