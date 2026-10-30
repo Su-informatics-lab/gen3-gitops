@@ -1,4 +1,4 @@
-# ARDaC production load balancer
+# ARDaC2 production load balancer
 
 ## API key creation
 
@@ -15,7 +15,7 @@ Fence or by making an in-cluster `POST` request to
 session token. Fence creates the key for the user identified by that token.
 
 Treat the returned API key and the session token as secrets. Do not place them
-in Git, command history, tickets, or logs. Use an explicit `ardac1prd` Kubernetes
+in Git, command history, tickets, or logs. Use an explicit `ardac2prd` Kubernetes
 context for any operator procedure.
 
 To roll back the public restriction, revert the supplemental Ingress. Fence and
