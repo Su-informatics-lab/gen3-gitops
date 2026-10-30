@@ -168,6 +168,9 @@ hatchery:
     image:
       repository: quay.io/cdis/fence
       tag: "2026.10"
+  # No Stata workspace is configured, so do not create an ExternalSecret for its license.
+  externalSecrets:
+    createK8sStataSecret: true
 
   hatchery:
     sidecarContainer:
@@ -1372,3 +1375,6 @@ wts:
   externalSecrets:
     dbcreds: "ardac1dmo-default-wts-creds"
     createWtsOidcClientSecret: false
+    wtsG3auto: "ardac1dmo-default-wts-g3auto"
+    wtsOidcClient: "ardac1dmo-default-wts-oidc-client"
+  oidc_job_enabled: false
