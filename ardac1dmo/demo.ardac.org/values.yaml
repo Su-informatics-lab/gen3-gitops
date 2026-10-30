@@ -51,7 +51,7 @@ arborist:
     targetCPUUtilizationPercentage: 80
   image:
     repository: quay.io/cdis/arborist
-    tag: "2026.03"
+    tag: "2026.10"
   externalSecrets:
     dbcreds: "ardac1dmo-default-arborist-creds"
 
@@ -68,7 +68,7 @@ audit:
     targetCPUUtilizationPercentage: 80
   image:
     repository: quay.io/cdis/audit-service
-    tag: "2026.03"
+    tag: "2026.10"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: "arn:aws:iam::613495871066:role/gen3_service/ardac1dmo-default-audit-sa"
@@ -119,7 +119,7 @@ fence:
     targetCPUUtilizationPercentage: 80
   image:
     repository: quay.io/cdis/fence
-    tag: "2026.03"
+    tag: "2026.10"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: "arn:aws:iam::613495871066:role/gen3_service/ardac1dmo-default-fence-sa"
@@ -162,11 +162,11 @@ hatchery:
     targetCPUUtilizationPercentage: 80
   image:
     repository: quay.io/cdis/hatchery
-    tag: "2026.03"
+    tag: "2026.10"
   fence:
     image:
       repository: quay.io/cdis/fence
-      tag: "2026.03"
+      tag: "2026.10"
 
   hatchery:
     sidecarContainer:
@@ -228,7 +228,7 @@ indexd:
     targetCPUUtilizationPercentage: 80
   image:
     repository: quay.io/cdis/indexd
-    tag: "2026.03"
+    tag: "2026.10"
   defaultPrefix: "dg.XXXX/"
   externalSecrets:
     dbcreds: "ardac1dmo-default-indexd-creds"
@@ -245,7 +245,7 @@ manifestservice:
     targetCPUUtilizationPercentage: 80
   image:
     repository: quay.io/cdis/manifestservice
-    tag: "2026.03"
+    tag: "2026.10"
   serviceAccount:
     annotations:
       eks.amazonaws.com/role-arn: "arn:aws:iam::613495871066:role/gen3_service/ardac1dmo-default-manifestservice-sa"
@@ -274,7 +274,7 @@ peregrine:
     targetCPUUtilizationPercentage: 80
   image:
     repository: quay.io/cdis/peregrine
-    tag: "2026.03"
+    tag: "2026.10"
   externalSecrets:
     dbcreds: "ardac1dmo-default-peregrine-creds"
 
@@ -290,13 +290,17 @@ portal:
     maxReplicas: 4
     targetCPUUtilizationPercentage: 80
   image:
-    repository: leftsweety/ardac-portal
-    tag: "1_11_23"
+    repository: bearbbhao/ardac-portal
+    tag: "1_6_1"
   gitops:
     json: |
       {
         "components": {
           "appName": "The AlcHepNet Research Data Commons Portal",
+          "apiKeys": {
+            "creationEnabled": false,
+            "creationDisabledMessage": "API key creation is disabled for ARDaC. Contact ardac@iu.edu for programmatic access."
+          },
           "graphql": {
             "boardCounts": [
               {
@@ -1331,13 +1335,13 @@ revproxy:
     targetCPUUtilizationPercentage: 80
   image:
     repository: quay.io/cdis/nginx
-    tag: "2026.03"
+    tag: "2026.10"
 
 sheepdog:
   enabled: true
   image:
     repository: quay.io/cdis/sheepdog
-    tag: "2026.03"
+    tag: "2026.10"
   replicaCount: 5
   autoscaling:
     enabled: false
@@ -1363,7 +1367,7 @@ wts:
     targetCPUUtilizationPercentage: 80
   image:
     repository: quay.io/cdis/workspace-token-service
-    tag: "2026.03"
+    tag: "2026.10"
   externalSecrets:
     dbcreds: "ardac1dmo-default-wts-creds"
     createWtsOidcClientSecret: false
